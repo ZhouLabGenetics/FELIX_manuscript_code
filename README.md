@@ -18,7 +18,6 @@ https://github.com/LinfengHu-1/SAIGE-Tractor
 - `prs/` — polygenic score pipeline: prep sumstats → PRS-CS → intersect → PLINK2
   scoring → R² evaluation in UK Biobank, plus the Figure 4 and Supplementary
   Table 9 scripts. `run_phenotype.sh` chains the per-phenotype steps.
-- `figures/` — R/ggplot2 scripts for the manuscript figures (`00_theme.R` shared
-  theme, `01_data.R` loaders); `figures/panels/` holds the Figure 1 schematic.
+- `figures/` — scripts for the manuscript figures 
 
 Absolute paths reflect the cluster and workbench the scripts were run on.
