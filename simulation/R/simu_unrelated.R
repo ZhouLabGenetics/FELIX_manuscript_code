@@ -1,4 +1,4 @@
-## Mixed-relatedness 3-way admixed simulation for SAIGE-Tractor benchmarking.
+## Mixed-relatedness 3-way admixed simulation for FELIX benchmarking.
 ##
 ## Cohort composition controlled by UNREL_PCT (env var, integer 0..100):
 ##   UNREL_PCT=100 -> all unrelated (original case)

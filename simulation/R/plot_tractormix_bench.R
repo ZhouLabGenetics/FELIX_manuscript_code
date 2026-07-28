@@ -139,8 +139,8 @@ if (file.exists(cs_path)) {
     geom_abline(slope = 1, intercept = 0, color = "grey50", linetype = "dashed") +
     geom_point(size = 2) +
     facet_wrap(~ trait, ncol = 3, scales = "free") +
-    labs(title = sprintf("Causal SNP: Tractor-Mix vs SAIGE-Tractor (CCT)  --  %s", mode),
-         x = expression(SAIGE-Tractor~CCT~-log[10](p)),
+    labs(title = sprintf("Causal SNP: Tractor-Mix vs FELIX (CCT)  --  %s", mode),
+         x = expression(FELIX~CCT~-log[10](p)),
          y = expression(Tractor-Mix~joint~-log[10](p)),
          color = "Scenario") +
     theme_bw(base_size = 12) +

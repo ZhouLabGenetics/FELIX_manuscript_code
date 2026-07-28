@@ -1,4 +1,4 @@
-## Summarise SAIGE-Tractor step2 output on ALT phenotypes into power tables.
+## Summarise FELIX step2 output on ALT phenotypes into power tables.
 ##
 ## Manifest-agnostic: walks data/<mode>/saige_out/alt/<TAG>/ directly. The
 ## TAG name encodes (trait, scenario, beta, seed) and is parsed via regex.

@@ -8,7 +8,7 @@
 #SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A.out
 #SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A.err
 
-## Build the sparse GRM for SAIGE-Tractor using SAIGE's createSparseGRM.R.
+## Build the sparse GRM for FELIX using SAIGE's createSparseGRM.R.
 ## Output files: <mode>/plink/sparseGRM_0.125_2000.sparseGRM.mtx
 ##               <mode>/plink/sparseGRM_0.125_2000.sparseGRM.mtx.sampleIDs.txt
 ##   MODE=common  sbatch 08_create_sparse_grm.sh

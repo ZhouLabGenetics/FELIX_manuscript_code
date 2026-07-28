@@ -157,7 +157,7 @@ for (trait in TRAITS) {
     if (saige$n_seeds > 0L) {
       for (nm in names(saige$pools)) {
         lambda_rows[[length(lambda_rows) + 1L]] <- data.table(
-          mode = mode, source = "SAIGE-Tractor", trait = trait,
+          mode = mode, source = "FELIX", trait = trait,
           test = nm,
           n_pvals = sum(is.finite(saige$pools[[nm]]) & saige$pools[[nm]] > 0),
           lambda_gc = lambda_gc(saige$pools[[nm]])

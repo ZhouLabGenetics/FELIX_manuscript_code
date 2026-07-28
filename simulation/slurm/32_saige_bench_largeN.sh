@@ -6,7 +6,7 @@
 #SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.out
 #SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.err
 
-## SAIGE-Tractor large-N benchmark on the bench_N<...>_P<...> data.
+## FELIX large-N benchmark on the bench_N<...>_P<...> data.
 ## Runs step1 (sparse-GRM null + variance ratio) then step2 chr1 with
 ## /usr/bin/time -v wrapping each invocation (matches 31_tm_bench_largeN.sh
 ## measurement methodology).

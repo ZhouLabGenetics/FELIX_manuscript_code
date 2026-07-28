@@ -6,7 +6,7 @@
 #SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.out
 #SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.err
 
-## SAIGE-Tractor on the unrelated benchmark cohort.
+## FELIX on the unrelated benchmark cohort.
 ## Step1 (sparse-GRM null + variance ratio) then step2 chr1 association on
 ## the VCF. Hybrid format is produced by 40_simu_unrelated.sh at
 ## ${UNR_DIR}/hybrid/ -- a separate step2 invocation can read it once we

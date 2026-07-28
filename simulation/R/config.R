@@ -54,7 +54,7 @@ set_mode <- function(mode) {
   }
 
   if (mode == "unr") {
-    ## Unrelated-cohort mode for SAIGE-Tractor benchmarking on
+    ## Unrelated-cohort mode for FELIX benchmarking on
     ## independent admixed individuals. Driven by env vars:
     ##   UNR_DIR  -- absolute path to the data dir (e.g.
     ##               .../data/unr_N10000_P50000); created if missing.

@@ -1,4 +1,4 @@
-## Summarise SAIGE-Tractor step2 output on NULL phenotypes.
+## Summarise FELIX step2 output on NULL phenotypes.
 ##
 ## For each trait type (quant, bin01, bin10), concatenate p-values from ALL
 ## seeds into one file so the user can make QQ plots downstream.
@@ -22,7 +22,7 @@ in_root  <- file.path(BASE, "data", mode, "saige_out", "null")
 out_root <- file.path(BASE, "FP",   mode)
 dir.create(out_root, recursive = TRUE, showWarnings = FALSE)
 
-## The 6 conditioned p-value columns from SAIGE-Tractor output.
+## The 6 conditioned p-value columns from FELIX output.
 P_COLS <- c("p.value_c_anc1", "p.value_c_anc2", "p.value_c_anc3",
             "P_het_admixed_c", "P_hom_admixed_c", "P_cct_admixed_c")
 

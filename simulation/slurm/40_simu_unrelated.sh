@@ -8,7 +8,7 @@
 
 ## Build a 3-way admixed benchmark cohort with mixed relatedness.
 ## N individuals (UNREL_PCT% unrelated, rest in FAMSIZE=10 sib families),
-## P common markers; all the inputs SAIGE-Tractor needs (PLINK + sparse GRM
+## P common markers; all the inputs FELIX needs (PLINK + sparse GRM
 ## + VCF) plus the new hybrid format.
 ##
 ## Config (env vars; defaults shown):

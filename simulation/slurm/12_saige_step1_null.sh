@@ -9,7 +9,7 @@
 #SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.err
 #SBATCH --array=1-30
 
-## SAIGE-Tractor step1 for NULL phenotypes.
+## FELIX step1 for NULL phenotypes.
 ## 3 trait types (quant, bin01, bin10) x 10 seeds = 30 pheno files.
 ## Each array task fits the null model for one pheno file and writes
 ##   data/<mode>/saige_out/null/<pheno_tag>/step1.rda

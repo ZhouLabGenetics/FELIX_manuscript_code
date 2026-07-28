@@ -6,7 +6,7 @@
 #SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.out
 #SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.err
 
-## Build everything needed to benchmark Tractor-Mix vs SAIGE-Tractor at one
+## Build everything needed to benchmark Tractor-Mix vs FELIX at one
 ## sample size in {10000, 50000, 100000, 150000, 200000}, with P=1000 markers
 ## and FAMSIZE=10 full sibs. SLURM array index selects N:
 ##

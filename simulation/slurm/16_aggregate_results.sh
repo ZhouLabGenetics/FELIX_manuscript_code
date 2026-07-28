@@ -8,7 +8,7 @@
 #SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A.out
 #SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A.err
 
-## Aggregate SAIGE-Tractor output into Type-I error and Power tables.
+## Aggregate FELIX output into Type-I error and Power tables.
 ##   MODE=common  sbatch 16_aggregate_results.sh
 ##   MODE=lowfreq sbatch 16_aggregate_results.sh
 

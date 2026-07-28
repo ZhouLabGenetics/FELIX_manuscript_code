@@ -48,7 +48,7 @@ if [[ "${FORCE_RERUN:-0}" == "1" ]]; then
 fi
 
 ## /usr/bin/time -v on the HOST wraps the singularity invocation so we
-## also capture container startup -- matches the SAIGE-Tractor bench (17c)
+## also capture container startup -- matches the FELIX bench (17c)
 ## measurement methodology, which times the singularity exec from outside.
 ## TM_NCORE is consumed by run_tractormix.R's TractorMix.score call.
 /usr/bin/time -v -o "$BENCH_LOG" \

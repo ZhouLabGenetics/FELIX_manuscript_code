@@ -1,4 +1,4 @@
-## Convert one Block_row (post-QC) into a bgzipped VCF that SAIGE-Tractor
+## Convert one Block_row (post-QC) into a bgzipped VCF that FELIX
 ## consumes in step2. Per-sample FORMAT layout matches the 2-way example
 ## extended to 3-way:
 ##
@@ -12,7 +12,7 @@
 ##   ANC3 = local-ancestry allele count for NAT  (= LAnat[i,j])
 ##   DSALL = DS1 + DS2 + DS3                          (= GTot[i,j])
 ##
-## No GT field is emitted (SAIGE-Tractor reads dosage fields directly).
+## No GT field is emitted (FELIX reads dosage fields directly).
 ##
 ## Output : data/<mode>/vcf/chr<No>.vcf.gz and chr<No>.vcf.gz.csi
 ##          (mode = common|lowfreq plain dirs; for unr/admix/bench the mode

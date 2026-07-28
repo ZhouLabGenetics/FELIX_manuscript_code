@@ -1,8 +1,5 @@
 #!/usr/bin/env Rscript
-# ==============================================================================
-# Publication Figure: 20-node Three-generation Pedigree
-# Optimized for absolute grid alignment with perfectly straight perpendicular lines.
-# ==============================================================================
+# Three-generation pedigree of the simulated families (Supplementary Fig. 10).
 
 if (!requireNamespace("kinship2", quietly = TRUE)) {
   install.packages("kinship2", repos = "https://cloud.r-project.org")

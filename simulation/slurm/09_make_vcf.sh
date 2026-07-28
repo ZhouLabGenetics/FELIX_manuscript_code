@@ -10,7 +10,7 @@
 #SBATCH --array=1-20
 
 ## Emit one bgzipped VCF per block_row with the 3-way dosage format
-## DS1:DS2:DS3:ANC1:ANC2:ANC3:DSALL that SAIGE-Tractor step2 consumes.
+## DS1:DS2:DS3:ANC1:ANC2:ANC3:DSALL that FELIX step2 consumes.
 ##   MODE=common  sbatch 09_make_vcf.sh
 ##   MODE=lowfreq sbatch 09_make_vcf.sh
 

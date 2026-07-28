@@ -8,7 +8,7 @@
 #SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%j.out
 #SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%j.err
 
-## SAIGE-Tractor head-to-head benchmark vs Tractor-Mix.
+## FELIX head-to-head benchmark vs Tractor-Mix.
 ## Runs step1 (variance components) + step2 (chr1 only, matching the chr1
 ## hapdose footprint Tractor-Mix consumes) under /usr/bin/time -v. Writes
 ## to a separate saige_bench/ tree so the existing saige_out/ is untouched.

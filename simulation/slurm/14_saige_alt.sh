@@ -8,7 +8,7 @@
 #SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.out
 #SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.err
 
-## Combined SAIGE-Tractor step1 + step2 for ALT phenotypes (power).
+## Combined FELIX step1 + step2 for ALT phenotypes (power).
 ##
 ## Reads pheno filenames from data/<MODE>/pheno/alt/manifest.tsv (column "file")
 ## so only manifest-listed phenos are run. Skips any pheno whose SAIGE output

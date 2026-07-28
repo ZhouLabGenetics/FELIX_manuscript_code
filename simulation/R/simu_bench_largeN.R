@@ -1,14 +1,14 @@
-## Minimal large-N benchmark simulator for SAIGE-Tractor vs Tractor-Mix.
+## Minimal large-N benchmark simulator for FELIX vs Tractor-Mix.
 ##
 ## Goal: demonstrate that as N grows, Tractor-Mix's dense-kinship GLMM blows
-## up while SAIGE-Tractor's sparse-GRM + variance-ratio pipeline stays cheap.
+## up while FELIX's sparse-GRM + variance-ratio pipeline stays cheap.
 ## To isolate that contrast we use a SMALL variant count (P=1000 by default),
 ## so simulation cost is dominated by N, not P.
 ##
 ## Sample structure: N / FAMSIZE families of FAMSIZE=10 FULL SIBS (no parents
 ## kept in the dataset). Within-family pedigree kinship is K[i,i]=0.5,
 ## K[i,j]=0.25 for i!=j; between families K=0. This makes K block-diagonal
-## sparse, so SAIGE-Tractor's sparse GRM is meaningful while Tractor-Mix's
+## sparse, so FELIX's sparse GRM is meaningful while Tractor-Mix's
 ## dense representation of the same K is unavoidably O(N^2) on disk and in RAM.
 ##
 ## Variant model: 1000 markers under Balding-Nichols with the same FST values

@@ -9,7 +9,7 @@
 #SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.err
 #SBATCH --array=1-30
 
-## SAIGE-Tractor step2 for NULL phenotypes.
+## FELIX step2 for NULL phenotypes.
 ## For each of the 30 null pheno files, loop through block_row VCFs (chr1..20)
 ## and emit per-chromosome association files used for Type-I error aggregation.
 ##

@@ -1,1 +1,3 @@
-3-way simulation (for Type I error and Power evaluation)
+Three-way admixture simulation for FELIX: type I error, power, and the
+Tractor-Mix / SAIGE benchmarks. R/ holds the generators and analysis; slurm/
+holds the job scripts, numbered in run order.
