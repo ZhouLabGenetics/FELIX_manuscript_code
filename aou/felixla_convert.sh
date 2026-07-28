@@ -5,7 +5,7 @@
 set -o pipefail
 set -o errexit
 
-rfmix_msp_to_tractor_hybrid \
+rfmix_msp_to_la \
     "${PHASED_VCF}" \
     "${MSP_FILE}" \
     5 \
