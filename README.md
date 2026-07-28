@@ -1,10 +1,10 @@
-# FELIX manuscript — analysis code
+# FELIX manuscript analysis scripts
 
 Code accompanying the FELIX manuscript. FELIX (Full-cohort Efficient Local
 ancestry-Integrated miXed-model framework) has two components: **FELIXla**, a
 haplotype-resolved storage format, and **FELIXassoc**, the association module.
 The method is implemented in the FELIX R package:
-https://github.com/LinfengHu-1/SAIGE-Tractor
+https://github.com/LinfengHu-1/FELIX
 
 ## Layout
 
