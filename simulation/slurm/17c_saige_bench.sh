@@ -40,7 +40,7 @@ KIND=${KIND:-null}
 module load singularity 2>/dev/null || true
 
 BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
-SAIGET=${SAIGET:-/data/wzhougroup/lhu/tools/saigetractor148.sif}
+SAIGET=${SAIGET:-/data/wzhougroup/lhu/tools/FELIX_latest.sif}
 SING="singularity exec --bind /data/wzhougroup/lhu:/data/wzhougroup/lhu --home /data/wzhougroup/lhu"
 
 case "$TRAIT" in

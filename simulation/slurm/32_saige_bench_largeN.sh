@@ -22,7 +22,7 @@ set -euo pipefail
 module load singularity
 
 BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
-SAIGET=${SAIGET:-/data/wzhougroup/lhu/tools/saigetractor148.sif}
+SAIGET=${SAIGET:-/data/wzhougroup/lhu/tools/FELIX_latest.sif}
 SING="singularity exec --bind /data/wzhougroup/lhu:/data/wzhougroup/lhu --home /data/wzhougroup/lhu"
 
 TASK=${SLURM_ARRAY_TASK_ID:?SLURM_ARRAY_TASK_ID must be set (use sbatch --array=...)}

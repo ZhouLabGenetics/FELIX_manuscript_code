@@ -31,7 +31,7 @@ BATCH_SIZE=${BATCH_SIZE:-10}
 START_BATCH_OFFSET=${START_BATCH_OFFSET:-0}
 
 BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
-SAIGET=/data/wzhougroup/lhu/tools/saigetractor148.sif
+SAIGET=/data/wzhougroup/lhu/tools/FELIX_latest.sif
 SING="singularity exec --bind /data/wzhougroup/lhu:/data/wzhougroup/lhu --home /data/wzhougroup/lhu"
 
 PHENO_DIR=${BASE}/data/${MODE}/pheno/alt

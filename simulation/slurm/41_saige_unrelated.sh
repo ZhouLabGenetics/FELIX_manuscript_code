@@ -27,7 +27,7 @@ set -euo pipefail
 module load apptainer 2>/dev/null || module load singularity 2>/dev/null || true
 
 BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
-SAIGET=${SAIGET:-/data/wzhougroup/lhu/tools/saigetractor_1.4.9-tractor-hybrid.1.sif}
+SAIGET=${SAIGET:-/data/wzhougroup/lhu/tools/FELIX_latest.sif}
 APPT="apptainer exec --bind /data/wzhougroup/lhu:/data/wzhougroup/lhu --home /data/wzhougroup/lhu"
 
 UNR_N=${UNR_N:-10000}

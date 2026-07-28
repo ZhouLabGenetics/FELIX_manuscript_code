@@ -61,7 +61,7 @@ module load apptainer 2>/dev/null || module load singularity 2>/dev/null || true
 
 BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
 RTOOLS=/data/wzhougroup/lhu/tools/rtools_latest.sif
-HYBRID_SIF=${HYBRID_SIF:-/data/wzhougroup/lhu/tools/saigetractor_1.4.9-tractor-hybrid.1.sif}
+HYBRID_SIF=${HYBRID_SIF:-/data/wzhougroup/lhu/tools/FELIX_latest.sif}
 APPT="apptainer exec --bind /data/wzhougroup/lhu:/data/wzhougroup/lhu --home /data/wzhougroup/lhu"
 
 ADMIX_N=${ADMIX_N:-20000}

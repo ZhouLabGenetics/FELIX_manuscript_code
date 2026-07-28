@@ -23,7 +23,7 @@ MODE=${MODE:?MODE (common|lowfreq) must be exported}
 module load singularity
 
 BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
-SAIGET=/data/wzhougroup/lhu/tools/saigetractor148.sif
+SAIGET=/data/wzhougroup/lhu/tools/FELIX_latest.sif
 SING="singularity exec --bind /data/wzhougroup/lhu:/data/wzhougroup/lhu --home /data/wzhougroup/lhu"
 
 PHENO_DIR=${BASE}/data/${MODE}/pheno/null
