@@ -1,0 +1,40 @@
+#!/bin/bash
+#$ -N prscs_boot
+#$ -cwd
+#$ -j y
+#$ -o /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/log/
+#$ -l h_vmem=32g
+#$ -l h_rt=12:00:00
+#$ -t 1-11
+# 07_prscs_bootstrap.qsub — incremental R2 + bootstrap for the PRS-CS scores, one trait per
+# task, PHASED like 04 (EUR-10k -> AFR/EAS/CSA -> full EUR) so partial results survive walltime.
+# PRS-CS scores are results/<trait>/<VAL>/<pred>_PRSCS.sscore ; baseline = felix.
+#   qsub 07_prscs_bootstrap.qsub                 # B=2000
+#   qsub -v B=1000 07_prscs_bootstrap.qsub
+source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+HERE="${SCRIPTS_DIR}"
+export CLUMP_P1=PRSCS          # tag: run_bootstrap globs *_PRSCS.sscore
+export BASELINE=felix          # PRS-CS predictor names are felix / meta / matched_<T>
+export DUMP="${DUMP:-1}"       # dump bootstrap draws by default (needed for the by-trait violin;
+                               # override with `qsub -v DUMP= ...` to skip)
+
+KV="${BASE}/keeps/eur10kval.keep"
+seeded(){ openssl enc -aes-256-ctr -pass pass:"$1" -nosalt </dev/zero 2>/dev/null; }
+[ -s "${KV}" ] || { comm -23 <(sort "${BASE}/keeps/EUR.keep") <(sort "${BASE}/keeps/eur10k.keep") \
+   | shuf --random-source=<(seeded 45) -n 10000 > "${KV}.$$" && mv "${KV}.$$" "${KV}"; }
+
+TRAIT=$(echo ${TRAITS} | cut -d' ' -f"${SGE_TASK_ID:-1}")
+: "${TRAIT:?bad SGE_TASK_ID}"
+D="${BASE}/results/${TRAIT}/EUR"
+
+echo ">>> PHASE 1: EUR 10k (${TRAIT})"
+ONLY_VAL=EUR EUR_KEEP="${KV}" OUTSUF=_eur10k bash "${HERE}/run_bootstrap.sh" "${TRAIT}"
+[ -s "${D}/incR2_PRSCS_eur10k.tsv" ]      && cp "${D}/incR2_PRSCS_eur10k.tsv"      "${D}/incR2_PRSCS.tsv"
+[ -s "${D}/incR2_PRSCS_eur10k_diff.tsv" ] && cp "${D}/incR2_PRSCS_eur10k_diff.tsv" "${D}/incR2_PRSCS_diff.tsv"
+
+echo ">>> PHASE 2: AFR EAS CSA (${TRAIT})"
+ONLY_VAL="AFR EAS CSA" bash "${HERE}/run_bootstrap.sh" "${TRAIT}"
+
+echo ">>> PHASE 3: full EUR (${TRAIT})"
+ONLY_VAL=EUR bash "${HERE}/run_bootstrap.sh" "${TRAIT}"
+echo ">>> PRS-CS bootstrap complete for ${TRAIT}"

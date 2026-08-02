@@ -1,0 +1,45 @@
+#!/bin/bash
+#$ -N prscs_score
+#$ -cwd
+#$ -j y
+#$ -o /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/log/
+#$ -l h_vmem=16g
+#$ -l h_rt=03:00:00
+#$ -t 1-124
+# 06_prscs_score.qsub — score PRS-CS posteriors on the target genotypes. One task per
+# (trait,target,predictor) combo (run AFTER 05 finishes). Posterior BP is hg19 = our
+# CHR:POS genotype keys, so score input = CHR:POS A1 posterior_beta.
+#   qsub -t 1-$(wc -l < prscs_combos.txt) 06_prscs_score.qsub
+source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+
+COMBOS="${COMBOS:-${BASE}/prscs_combos.txt}"    # same selector as 05 (e.g. an ALP-only file)
+NC=$(wc -l < "${COMBOS}")
+[ "${SGE_TASK_ID:-1}" -le "${NC}" ] || { echo "past combo count, skip"; exit 0; }
+read TRAIT TGT PRED < <(sed -n "${SGE_TASK_ID:-1}p" "${COMBOS}")
+: "${TRAIT:?}"; : "${TGT:?}"; : "${PRED:?}"
+
+PDIR="${BASE}/prscs_out/${TRAIT}/${TGT}"
+RES="${BASE}/results/${TRAIT}/${TGT}"; mkdir -p "${RES}"
+TMP="${PDIR}/score_${PRED}"; mkdir -p "${TMP}"
+# target genotypes: EUR -> eurval (no keep); AFR/EAS/CSA -> ldset --keep <TGT>
+if [ "${TGT}" = "EUR" ]; then TPFX="${BASE}/geno_bed/eurval/chr"; KEEP="";
+else TPFX="${BASE}/geno_bed/ldset/chr"; KEEP="--keep ${BASE}/keeps/${TGT}.keep"; fi
+
+for c in $(seq 1 22); do
+  POST="${PDIR}/${PRED}_pst_eff_a1_b0.5_phiauto_chr${c}.txt"
+  BED="${TPFX}${c}"
+  [ -s "${POST}" ] && [ -s "${BED}.bed" ] || { echo "  chr${c}: missing posterior/bed, skip"; continue; }
+  awk '{print $1":"$3, $4, $6}' "${POST}" > "${TMP}/w${c}.txt"      # CHR:POS A1 posterior_beta
+  "${PLINK2}" --bfile "${BED}" ${KEEP} --score "${TMP}/w${c}.txt" 1 2 3 cols=+scoresums \
+    --memory "${PLINK2_MEM}" --out "${TMP}/chr${c}" 2>&1 | tail -1
+done
+
+# combine SCORE1_SUM across chromosomes -> IID SCORE_SUM (matches bootstrap_r2.R reader)
+fs=$(ls "${TMP}"/chr*.sscore 2>/dev/null || true)
+[ -n "${fs}" ] || { echo "no sscores for ${TRAIT}/${TGT}/${PRED}"; exit 1; }
+awk 'FNR==1{ii=sc=0; for(i=1;i<=NF;i++){if($i ~ /IID/)ii=i; if($i=="SCORE1_SUM")sc=i}; next}
+     {s[$ii]+=$sc; seen[$ii]=1}
+     END{print "IID\tSCORE_SUM"; for(k in seen) printf "%s\t%.6g\n", k, s[k]}' ${fs} \
+  > "${RES}/${PRED}_PRSCS.sscore"
+echo "-> ${RES}/${PRED}_PRSCS.sscore"
+rm -rf "${TMP}"
