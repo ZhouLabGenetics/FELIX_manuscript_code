@@ -1,0 +1,29 @@
+#!/bin/bash
+#$ -N boot_e10k
+#$ -cwd
+#$ -j y
+#$ -o /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/log/
+#$ -l h_vmem=16g
+#$ -l h_rt=02:00:00
+#$ -t 1-11
+# INSURANCE run: evaluate the EUR validation on a 10k random EUR subset (disjoint from the
+# eur10k LD panel), keeping B=2000. Uses the SAME full-EUR sscores, just --keep'd to 10k, so
+# it's fast (seconds/trait) and writes SEPARATE outputs (incR2_<thr>_eur10k.tsv). Safe to run
+# alongside the full-EUR 04_bootstrap.qsub — different files, read-only shared inputs.
+#   qsub 04b_bootstrap_eur10k.qsub                    # 5e-8, B=2000
+#   qsub -v CLUMP_P1=5e-6 04b_bootstrap_eur10k.qsub   # 5e-6
+source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+
+# 10k EUR validation subset, disjoint from the eur10k LD panel. Deterministic (seed 45) so
+# racing array tasks produce identical content; atomic mv so no partial reads.
+KV="${BASE}/keeps/eur10kval.keep"
+seeded(){ openssl enc -aes-256-ctr -pass pass:"$1" -nosalt </dev/zero 2>/dev/null; }
+[ -s "${KV}" ] || { comm -23 <(sort "${BASE}/keeps/EUR.keep") <(sort "${BASE}/keeps/eur10k.keep") \
+   | shuf --random-source=<(seeded 45) -n 10000 > "${KV}.$$" && mv "${KV}.$$" "${KV}"; }
+
+export ONLY_VAL=EUR
+export EUR_KEEP="${KV}"
+export OUTSUF="_eur10k"
+TRAIT=$(echo ${TRAITS} | cut -d' ' -f"${SGE_TASK_ID:-1}")
+: "${TRAIT:?bad SGE_TASK_ID ${SGE_TASK_ID:-} (expected 1..11)}"
+bash "${SCRIPTS_DIR}/run_bootstrap.sh" "${TRAIT}"

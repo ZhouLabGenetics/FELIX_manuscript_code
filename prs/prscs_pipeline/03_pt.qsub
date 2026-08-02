@@ -1,0 +1,16 @@
+#!/bin/bash
+#$ -N pt
+#$ -cwd
+#$ -j y
+#$ -o /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/log/
+#$ -l h_vmem=8g
+#$ -l h_rt=04:00:00
+#$ -t 1-11
+# 03_pt.qsub — one array task per trait (11 traits). Runs all P+T PRS for that trait.
+#   qsub 03_pt.qsub                       # 5e-8
+#   qsub -v CLUMP_P1=5e-6 03_pt.qsub      # 5e-6 sensitivity
+# Smoke test: SGE_TASK_ID=6 bash 03_pt.qsub   # trait #6 = 3024929 (platelets)
+source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+TRAIT=$(echo ${TRAITS} | cut -d' ' -f"${SGE_TASK_ID:-1}")
+: "${TRAIT:?bad SGE_TASK_ID ${SGE_TASK_ID:-} (expected 1..11)}"
+bash "${SCRIPTS_DIR}/run_pt.sh" "${TRAIT}"

@@ -1,0 +1,39 @@
+#!/bin/bash
+#$ -N geno_prep
+#$ -cwd
+#$ -j y
+#$ -o /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/log/
+#$ -l h_vmem=24g
+#$ -l h_rt=24:00:00
+#$ -t 1-22
+# 02_geno_prep.qsub — ONE bgen read per chromosome (22 tasks). Two stages:
+#   (1) bgenix pulls ONLY the HM3 variants from the bgen via its .bgi index -> a small
+#       HM3-only bgen. This is fast AND immediately confirms the rsID list matches the
+#       bgen variant IDs (watch the variant count).
+#   (2) plink2 splits that small bgen into the beds we need, renaming variants to CHR:POS
+#       from the bgen's own hg19 positions (@:#). Full EUR is affordable because the
+#       intermediate is HM3-only.
+#
+#   qsub 02_geno_prep.qsub            # 22 tasks in parallel
+# Smoke-test one chr:  SGE_TASK_ID=22 bash 02_geno_prep.qsub
+source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+cd "${BASE}"
+
+c=${SGE_TASK_ID:-1}
+HB="geno_bed/full/chr${c}.hm3.bgen"
+
+# 1) bgenix: HM3-only bgen (index-based; confirms rsID matching)
+"${BGENIX}" -g "${BGENDIR}/ukb_imp_chr${c}_v3.bgen" -incl-rsids hm3/hm3_rsids.txt > "${HB}"
+echo "chr${c}: HM3 bgen $(du -h "${HB}" | cut -f1)"
+
+# 2) plink2: split into ldset (LD panels + AFR/EAS/CSA targets) and eurval (EUR target),
+# renaming variants to CHR:POS (hg19) so they match the predictor score files.
+for grp in ldset eurval; do
+  "${PLINK2}" --bgen "${HB}" ref-first --sample "${SAMPLE_PLINK}" \
+    --keep "keeps/${grp}.keep" --set-all-var-ids '@:#' --rm-dup exclude-all \
+    --memory "${PLINK2_MEM}" --make-bed --out "geno_bed/${grp}/chr${c}"
+done
+
+# 3) drop the intermediate HM3 bgen
+rm -f "${HB}"
+echo "chr${c} done: ldset $(wc -l < "geno_bed/ldset/chr${c}.fam") | eurval $(wc -l < "geno_bed/eurval/chr${c}.fam") samples, $(wc -l < "geno_bed/ldset/chr${c}.bim") HM3 variants"

@@ -1,0 +1,46 @@
+#!/bin/bash
+#$ -N prscs
+#$ -cwd
+#$ -j y
+#$ -o /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/log/
+#$ -l h_vmem=16g
+#$ -l h_rt=12:00:00
+#$ -t 1-2728
+# 05_prscs.qsub — PRS-CS posteriors, ONE task per (combo x chromosome). PRS-CS is slow
+# (~3-4 h for the biggest chromosomes at 1000 MCMC iters), so we parallelize per chr.
+# COMBOS selects which combos to run (default = all); array size = (#combos) x 22.
+# Resume-safe: a chr whose posterior already exists is skipped. Cap concurrency with -tc.
+#
+#   # ALL combos:
+#   NC=$(wc -l < ../prscs_combos.txt); qsub -t 1-$((NC*22)) -tc 300 05_prscs.qsub
+#   # ONE trait first (e.g. Alkaline Phosphatase 3035995):
+#   grep '^3035995 ' ../prscs_combos.txt > ../prscs_combos_alp.txt
+#   NA=$(wc -l < ../prscs_combos_alp.txt)
+#   qsub -t 1-$((NA*22)) -tc 300 -v COMBOS=/humgen/atgu1/fin/lhu/projects/saige_tractor/prs/prscs_combos_alp.txt 05_prscs.qsub
+#   # smoke one chr:  SGE_TASK_ID=1 bash 05_prscs.qsub
+source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+set +eu; source /broad/software/scripts/useuse; use Python-3.9; set -eu
+
+COMBOS="${COMBOS:-${BASE}/prscs_combos.txt}"
+NC=$(wc -l < "${COMBOS}")
+t=$(( ${SGE_TASK_ID:-1} - 1 ))
+ci=$(( t / 22 )); c=$(( t % 22 + 1 ))
+[ "${ci}" -lt "${NC}" ] || { echo "task past combo count ${NC}, skip"; exit 0; }
+read TRAIT TGT PRED < <(sed -n "$((ci+1))p" "${COMBOS}")
+: "${TRAIT:?}"; : "${TGT:?}"; : "${PRED:?}"
+
+N=$(ngwas_of "${TRAIT}" "${PRED}")
+[ -n "${N}" ] || { echo "no n_gwas for ${TRAIT}/${PRED}"; exit 1; }
+PANEL=$(panel_of "${TGT}")
+OUTD="${BASE}/prscs_out/${TRAIT}/${TGT}"; mkdir -p "${OUTD}"
+OUTFILE="${OUTD}/${PRED}_pst_eff_a1_b0.5_phiauto_chr${c}.txt"
+[ -s "${OUTFILE}" ] && { echo "chr${c} exists, skip ${TRAIT}/${TGT}/${PRED}"; exit 0; }
+echo "PRScs ${TRAIT}/${TGT}/${PRED} chr${c}  N=${N} panel=${PANEL}"
+
+python3 "${PRSCS}" \
+  --ref_dir="${PRSREF}/ldblk_ukbb_${PANEL}" \
+  --bim_prefix="${PRSCS_BIM}" \
+  --sst_file="${SST_DIR}/${TRAIT}/${PRED}.txt" \
+  --n_gwas="${N}" \
+  --chrom="${c}" \
+  --out_dir="${OUTD}/${PRED}"
