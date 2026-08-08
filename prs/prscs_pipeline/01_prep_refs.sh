@@ -2,7 +2,7 @@
 # 01_prep_refs.sh — build (a) per-chromosome HM3 CHR:POS extract lists, and (b) the
 # sample keep lists for every group we will extract: the 4 ancestries (full) plus the
 # two multi-ancestry LD panels eur10k and prop10k. Pure awk/shuf; runs in seconds.
-source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+source config.sh
 cd "${BASE}"
 
 # (0) rebuild a plink2-ready Oxford .sample from the header-less ...rmFirstTwoLines
