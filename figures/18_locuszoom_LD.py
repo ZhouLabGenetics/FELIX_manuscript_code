@@ -4,7 +4,7 @@
 ──────────────────
 LocusZoom-style locus-zooms with REAL linkage-disequilibrium (r^2) colouring,
 for the Mechanism-A (inclusion -> power) loci. Each panel shows the
-SAIGE-Tractor combined-test -log10 p across the locus, with every variant
+FELIX combined-test -log10 p across the locus, with every variant
 coloured by its r^2 to the lead variant (the standard LocusZoom rainbow),
 the All-by-All global-ancestry meta-analysis overlaid as open reference
 markers, the genome-wide line, and the lead variant marked.
@@ -146,7 +146,7 @@ def lz_LD_panel(saige_pheno, aba_pheno, gene, chrom, pos, trait, driver,
     if not ab.empty:
         ax.scatter(ab["POS"]/1e6, ab["y"], s=52, facecolor="none",
                    edgecolors=ab["col"], linewidth=1.7, zorder=3)
-    # SAIGE-Tractor combined test = filled circles (fill = r^2).
+    # FELIX combined test = filled circles (fill = r^2).
     ax.scatter(sg["POS"]/1e6, sg["y"], s=60, c=sg["col"], edgecolor="white",
                linewidth=0.5, zorder=4)
     ax.axhline(GW_LOG, ls="--", lw=1.8, color="#333")
@@ -163,7 +163,7 @@ def lz_LD_panel(saige_pheno, aba_pheno, gene, chrom, pos, trait, driver,
     ax.set_ylabel("Association evidence  ($-\\log_{10} p$)")
     ymax = max(sg["y"].max(), ab["y"].max() if not ab.empty else 0)
     ax.set_ylim(0, ymax * 1.20)
-    ax.set_title(f"{gene} — {trait}: SAIGE-Tractor vs All by All, "
+    ax.set_title(f"{gene} — {trait}: FELIX vs All by All, "
                  f"variants coloured by LD ($r^2$) to the lead",
                  loc="left", weight="bold", fontsize=13)
 
@@ -179,7 +179,7 @@ def lz_LD_panel(saige_pheno, aba_pheno, gene, chrom, pos, trait, driver,
                    markeredgecolor="black", markersize=11, label="lead variant"),
             Line2D([], [], marker="o", color="none", markerfacecolor="#777",
                    markeredgecolor="white", markersize=10,
-                   label="SAIGE-Tractor (combined test)"),
+                   label="FELIX (combined test)"),
             Line2D([], [], marker="o", color="none", markerfacecolor="none",
                    markeredgecolor="#777", markersize=10, markeredgewidth=1.7,
                    label="All by All (meta-analysis)")]

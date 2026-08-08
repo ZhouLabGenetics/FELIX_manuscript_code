@@ -18,7 +18,8 @@ MODE=${MODE:?MODE (common|lowfreq) must be exported}
 BATCH_SIZE=${BATCH_SIZE:-10}
 ARRAY_LIMIT=${ARRAY_LIMIT:-1000}
 
-BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
+BASE="${FELIX_SIM_BASE:?Set FELIX_SIM_BASE to the simulation directory before submitting}"
+export FELIX_SIM_BASE
 PHENO_DIR=${BASE}/data/${MODE}/pheno/alt
 
 if [[ ! -d $PHENO_DIR ]]; then

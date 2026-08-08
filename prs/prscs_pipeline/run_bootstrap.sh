@@ -6,7 +6,7 @@
 #   bash run_bootstrap.sh 3006923            # ONE trait (used by 04_bootstrap.qsub array)
 #   B=1000 CLUMP_P1=5e-6 bash run_bootstrap.sh 3006923
 # EUR is ~400k people, so B*fit dominates; parallelize with 04_bootstrap.qsub (one trait/task).
-source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/config.sh"
 # load R-4.1 (base R). `use` returns nonzero when already loaded, which would trip the
 # config's `set -e` and exit silently -> disable errexit/nounset just for this block.
 set +eu; source /broad/software/scripts/useuse; use R-4.1; set -eu

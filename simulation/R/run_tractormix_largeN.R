@@ -20,7 +20,7 @@ if (length(args) < 1) stop("Usage: run_tractormix_largeN.R <quant|bin10|bin01>")
 trait <- args[1]
 seed  <- 1L
 
-source("/data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/R/config.R")
+source(file.path(Sys.getenv("FELIX_SIM_BASE", unset = stop("Set FELIX_SIM_BASE to the simulation directory before running this script")), "R", "config.R"))
 set_mode("bench")
 suppressPackageStartupMessages({
   library(data.table)

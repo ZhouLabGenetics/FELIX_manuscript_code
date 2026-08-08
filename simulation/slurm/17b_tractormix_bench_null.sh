@@ -3,8 +3,8 @@
 #SBATCH --partition=normal
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
-#SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.out
-#SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.err
+#SBATCH --output=log/%x_%A_%a.out
+#SBATCH --error=log/%x_%A_%a.err
 
 ## Run one Tractor-Mix Type-I (null) benchmark task. Wall time + peak RSS
 ## are captured by /usr/bin/time -v into bench.log inside the TAG output
@@ -18,7 +18,8 @@ MODE=${MODE:?MODE must be exported}
 MANIFEST=${MANIFEST:?MANIFEST must be exported}
 module load singularity
 
-BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
+BASE="${FELIX_SIM_BASE:?Set FELIX_SIM_BASE to the simulation directory before submitting}"
+export FELIX_SIM_BASE
 TMIX_SIF=${TMIX_SIF:-/data/wzhougroup/lhu/tools/tractormix.sif}
 SING="singularity exec --bind /data/wzhougroup/lhu:/data/wzhougroup/lhu --home /data/wzhougroup/lhu"
 
@@ -52,7 +53,7 @@ fi
 ## TM_NCORE is consumed by run_tractormix_null.R's TractorMix.score call.
 /usr/bin/time -v -o "$BENCH_LOG" \
     $SING $TMIX_SIF \
-        Rscript ${BASE}/scripts/R/run_tractormix_null.R \
+        Rscript ${BASE}/R/run_tractormix_null.R \
             "$MODE" "$TRAIT" "$SEED"
 
 echo "Done: ${TAG}"

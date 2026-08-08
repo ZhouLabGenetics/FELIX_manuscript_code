@@ -40,7 +40,7 @@ stopifnot(is.finite(n_seeds), n_seeds >= 1L, n_seeds <= 99L)
 scenario <- Sys.getenv("ADMIX_SCENARIO", "")
 stopifnot(scenario %in% c("2way_50_50", "2way_25_75", "3way_20_30_50"))
 
-source("/data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/R/config.R")
+source(file.path(Sys.getenv("FELIX_SIM_BASE", unset = stop("Set FELIX_SIM_BASE to the simulation directory before running this script")), "R", "config.R"))
 set_mode("admix")
 source_utils()
 

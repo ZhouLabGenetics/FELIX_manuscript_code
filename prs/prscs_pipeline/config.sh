@@ -1,10 +1,12 @@
 #!/bin/bash
 # config.sh — shared paths/config for the UKB multi-ancestry PRS pipeline on the NEW
-# cluster (UGER/qsub). Every script does `source config.sh`. Edit here, once.
+# cluster (UGER/qsub). Every script sources this file. Edit here, once.
 set -euo pipefail
 
-BASE=.
-SCRIPTS_DIR="${BASE}/scripts"          # all pipeline scripts live here (absolute; qsub-safe)
+# Set FELIX_PRS_BASE to use a data/output directory outside this repository.
+# By default, outputs are placed beside this configuration file.
+BASE="${FELIX_PRS_BASE:-$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)}"
+SCRIPTS_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 TOOLS=/humgen/atgu1/fin/lhu/tools
 PLINK2="${TOOLS}/plink2"                              # v2.00a6LM (Aug 2024) — bgen->bed
 PLINK19="${TOOLS}/plink"                             # v1.9.0-b.7.11 — clump + score (validated dialect)

@@ -5,8 +5,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=12G
-#SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A.out
-#SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A.err
+#SBATCH --output=log/%x_%A.out
+#SBATCH --error=log/%x_%A.err
 
 ## One-time prep: convert Block_row1/G{Afr,Eur,Nat}.tsv to Tractor-Mix
 ## hapdose layout under data/<MODE>/tractormix/hapdose/.
@@ -21,8 +21,9 @@ set -euo pipefail
 MODE=${MODE:?MODE (common|lowfreq) must be exported}
 module load singularity
 
-BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
+BASE="${FELIX_SIM_BASE:?Set FELIX_SIM_BASE to the simulation directory before submitting}"
+export FELIX_SIM_BASE
 RTOOLS=/data/wzhougroup/lhu/tools/rtools_latest.sif
 SING="singularity exec --bind /data/wzhougroup/lhu:/data/wzhougroup/lhu --home /data/wzhougroup/lhu"
 
-$SING $RTOOLS Rscript ${BASE}/scripts/R/make_tractormix_hapdose.R "${MODE}"
+$SING $RTOOLS Rscript ${BASE}/R/make_tractormix_hapdose.R "${MODE}"

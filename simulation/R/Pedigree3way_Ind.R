@@ -8,7 +8,7 @@ if (length(args) < 2) stop("Usage: Pedigree3way_Ind.R <No> <common|lowfreq>")
 No   <- as.integer(args[1])
 mode <- args[2]
 
-source("/data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/R/config.R")
+source(file.path(Sys.getenv("FELIX_SIM_BASE", unset = stop("Set FELIX_SIM_BASE to the simulation directory before running this script")), "R", "config.R"))
 set_mode(mode)
 source_utils()
 library(data.table)

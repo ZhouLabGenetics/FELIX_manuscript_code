@@ -3,8 +3,8 @@
 #SBATCH --partition=normal
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.out
-#SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.err
+#SBATCH --output=log/%x_%A_%a.out
+#SBATCH --error=log/%x_%A_%a.err
 
 ## FELIX large-N benchmark on the bench_N<...>_P<...> data.
 ## Runs step1 (sparse-GRM null + variance ratio) then step2 chr1 with
@@ -21,7 +21,8 @@
 set -euo pipefail
 module load singularity
 
-BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
+BASE="${FELIX_SIM_BASE:?Set FELIX_SIM_BASE to the simulation directory before submitting}"
+export FELIX_SIM_BASE
 SAIGET=${SAIGET:-/data/wzhougroup/lhu/tools/FELIX_latest.sif}
 SING="singularity exec --bind /data/wzhougroup/lhu:/data/wzhougroup/lhu --home /data/wzhougroup/lhu"
 

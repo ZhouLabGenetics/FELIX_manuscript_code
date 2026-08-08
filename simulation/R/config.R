@@ -1,11 +1,15 @@
 ## Shared paths / constants for the 3-way admixture simulation.
-## Every R script sources this file with a fully-qualified path, e.g.
-##   source("/data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/R/config.R")
+## Every R script sources this file via the FELIX_SIM_BASE environment variable.
+## Set FELIX_SIM_BASE to the simulation directory before running a script.
 ## and then calls set_mode("common") or set_mode("lowfreq") to set paths
 ## for a given MAF regime.
 
-BASE        <- "/data/wzhougroup/lhu/saige_tractor/simulation/3way"
-SCRIPT_DIR  <- file.path(BASE, "scripts", "R")
+BASE        <- Sys.getenv("FELIX_SIM_BASE")
+if (!nzchar(BASE)) {
+  stop("Set FELIX_SIM_BASE to the simulation directory before running this script")
+}
+BASE        <- normalizePath(BASE, mustWork = FALSE)
+SCRIPT_DIR  <- file.path(BASE, "R")
 LOG_DIR     <- file.path(BASE, "log")
 
 ## Simulation-wide constants

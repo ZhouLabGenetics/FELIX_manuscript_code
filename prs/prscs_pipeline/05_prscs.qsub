@@ -2,7 +2,7 @@
 #$ -N prscs
 #$ -cwd
 #$ -j y
-#$ -o /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/log/
+#$ -o log/
 #$ -l h_vmem=16g
 #$ -l h_rt=12:00:00
 #$ -t 1-2728
@@ -16,9 +16,9 @@
 #   # ONE trait first (e.g. Alkaline Phosphatase 3035995):
 #   grep '^3035995 ' ../prscs_combos.txt > ../prscs_combos_alp.txt
 #   NA=$(wc -l < ../prscs_combos_alp.txt)
-#   qsub -t 1-$((NA*22)) -tc 300 -v COMBOS=/humgen/atgu1/fin/lhu/projects/saige_tractor/prs/prscs_combos_alp.txt 05_prscs.qsub
+#   qsub -t 1-$((NA*22)) -tc 300 -v COMBOS=<FELIX_PRS_BASE>/prscs_combos_alp.txt 05_prscs.qsub
 #   # smoke one chr:  SGE_TASK_ID=1 bash 05_prscs.qsub
-source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/config.sh"
 set +eu; source /broad/software/scripts/useuse; use Python-3.9; set -eu
 
 COMBOS="${COMBOS:-${BASE}/prscs_combos.txt}"

@@ -5,8 +5,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=32G
-#SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A.out
-#SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A.err
+#SBATCH --output=log/%x_%A.out
+#SBATCH --error=log/%x_%A.err
 
 ## Build the sparse GRM for FELIX using SAIGE's createSparseGRM.R.
 ## Output files: <mode>/plink/sparseGRM_0.125_2000.sparseGRM.mtx
@@ -17,7 +17,8 @@
 set -euo pipefail
 MODE=${MODE:?MODE (common|lowfreq) must be exported}
 module load singularity 
-BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
+BASE="${FELIX_SIM_BASE:?Set FELIX_SIM_BASE to the simulation directory before submitting}"
+export FELIX_SIM_BASE
 SAIGE=/data/wzhougroup/lhu/tools/saige_151.sif
 SING="singularity exec --bind /data/wzhougroup/lhu:/data/wzhougroup/lhu --home /data/wzhougroup/lhu"
 

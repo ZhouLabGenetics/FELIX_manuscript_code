@@ -2,7 +2,7 @@
 """
 21_chisq_boxplot.py
 ───────────────────
-Overall signal-strength comparison, All by All vs SAIGE-Tractor, as the boxplot
+Overall signal-strength comparison, All by All vs FELIX, as the boxplot
 analog of Supplementary Fig. 2b. Where 2b counts each method's independent
 genome-wide-significant loci, this plots the DISTRIBUTION of their signal: the
 1-degree-of-freedom chi-square converted back from each locus's p-value
@@ -10,7 +10,7 @@ genome-wide-significant loci, this plots the DISTRIBUTION of their signal: the
 
   left  box : All by All meta-analysis  — chi-square at its GW-significant loci
               (from ABA_META_Pvalue)
-  right box : SAIGE-Tractor combined (CCT) test — chi-square at its GW-significant
+  right box : FELIX combined (CCT) test — chi-square at its GW-significant
               loci (from SAIGE_P_cct_admixed_c)
 
 Two side-by-side boxplots; log y-axis (top-locus chi-square spans orders of
@@ -30,7 +30,7 @@ from common import FIGS_DIR, SCATTER_TABLES, load_scatter, safe_float, apply_man
 apply_manuscript_style()
 
 COL_ABA   = "#0072B2"   # All by All (deep blue)
-COL_SAIGE = "#CC79A7"   # SAIGE-Tractor (brand reddish purple)
+COL_SAIGE = "#CC79A7"   # FELIX (brand reddish purple)
 GW = 5e-8
 P_FLOOR = 1e-300        # floor to keep chi-square finite for underflowed p (p==0)
 GW_CHISQ = float(chi2.isf(GW, 1))   # ~29.72
@@ -55,13 +55,13 @@ saige = df.loc[df["tophit_source"] == "SAIGE", "chisq_saige"].dropna().values
 p_aba_src   = pd.to_numeric(df.loc[df["tophit_source"]=="ABA","ABA_META_Pvalue"], errors="coerce")
 p_saige_src = pd.to_numeric(df.loc[df["tophit_source"]=="SAIGE","SAIGE_P_cct_admixed_c"], errors="coerce")
 print(f"[21] All by All tophits n={len(aba)} ({(p_aba_src<GW).sum()} with p<5e-8)  median chi2={np.median(aba):.1f}")
-print(f"[21] SAIGE-Tractor tophits n={len(saige)} ({(p_saige_src<GW).sum()} with p<5e-8)  median chi2={np.median(saige):.1f}")
+print(f"[21] FELIX tophits n={len(saige)} ({(p_saige_src<GW).sum()} with p<5e-8)  median chi2={np.median(saige):.1f}")
 print(f"[21] phenotypes with loci: {df.loc[df['tophit_source'].isin(['ABA','SAIGE']),'phenotype'].nunique()} of 24")
 
 fig, ax = plt.subplots(figsize=(6.8, 6.4))
 data = [aba, saige]
 cols = [COL_ABA, COL_SAIGE]
-labels = [f"All by All\nmeta-analysis", f"SAIGE-Tractor\ncombined test"]
+labels = [f"All by All\nmeta-analysis", f"FELIX\ncombined test"]
 positions = [1, 2]
 
 bp = ax.boxplot(data, positions=positions, widths=0.55, patch_artist=True,

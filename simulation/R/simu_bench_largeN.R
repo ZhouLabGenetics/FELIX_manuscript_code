@@ -32,7 +32,7 @@
 ##   BENCH_DIR=/.../bench_N50000_P1000  BENCH_N=50000  BENCH_P=1000  \
 ##       Rscript simu_bench_largeN.R
 
-source("/data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/R/config.R")
+source(file.path(Sys.getenv("FELIX_SIM_BASE", unset = stop("Set FELIX_SIM_BASE to the simulation directory before running this script")), "R", "config.R"))
 set_mode("bench")
 source_utils()
 

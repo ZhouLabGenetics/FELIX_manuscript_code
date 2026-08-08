@@ -5,8 +5,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=16G
-#SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%j.out
-#SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%j.err
+#SBATCH --output=log/%x_%j.out
+#SBATCH --error=log/%x_%j.err
 
 ## FELIX head-to-head benchmark vs Tractor-Mix.
 ## Runs step1 (variance components) + step2 (chr1 only, matching the chr1
@@ -39,7 +39,8 @@ SEED=${SEED:?SEED (1-10) must be exported}
 KIND=${KIND:-null}
 module load singularity 2>/dev/null || true
 
-BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
+BASE="${FELIX_SIM_BASE:?Set FELIX_SIM_BASE to the simulation directory before submitting}"
+export FELIX_SIM_BASE
 SAIGET=${SAIGET:-/data/wzhougroup/lhu/tools/FELIX_latest.sif}
 SING="singularity exec --bind /data/wzhougroup/lhu:/data/wzhougroup/lhu --home /data/wzhougroup/lhu"
 

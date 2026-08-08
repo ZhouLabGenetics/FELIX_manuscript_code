@@ -2,7 +2,7 @@
 """
 04_manuscript_figures.py
 ────────────────────────
-Publication-quality PDF + PNG figures emphasizing SAIGE-Tractor's
+Publication-quality PDF + PNG figures emphasizing FELIX's
 advantages over the AllxAll meta pipeline.
 
 Each figure is written to `manuscript_figures/` as both `.pdf` (vector,
@@ -79,7 +79,7 @@ def fig1_sample_size():
     ax.set_axisbelow(True)
     ax.legend(loc="lower right", title="Ancestry", framealpha=0.95)
 
-    # RIGHT: SAIGE-Tractor individual-equivalent N (haplotypes ÷ 2) per local ancestry
+    # RIGHT: FELIX individual-equivalent N (haplotypes ÷ 2) per local ancestry
     ax = axes[1]
     bottom = np.zeros(len(phenos))
     for anc in ["AFR","EAS","EUR","NatAm","SAS"]:
@@ -255,7 +255,7 @@ def fig6_het_hom():
     savefig(fig, "fig6_het_vs_hom")
 
 # ═══════════════════════════════════════════════════════════════════════════
-# FIGURE 7 — Replication of SAIGE-Tractor unique loci in ABA
+# FIGURE 7 — Replication of FELIX unique loci in ABA
 # ═══════════════════════════════════════════════════════════════════════════
 def fig7_replication_barcode():
     f = REPLICATION_DIR / "replication_saige_only_in_aba.tsv"

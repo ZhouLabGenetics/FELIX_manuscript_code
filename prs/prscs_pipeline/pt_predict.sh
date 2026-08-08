@@ -8,7 +8,7 @@
 #     LDREF : eur10k | prop10k | AFR | EAS | CSA                 (clumping panel; a keeps/<LDREF>.keep)
 # Genotypes come from two beds only: ldset (all LD panels + AFR/EAS/CSA targets, subset by
 # --keep) and eurval (the EUR validation target).
-source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/config.sh"
 TRAIT="$1"; VAL="$2"; PRED="$3"; LDREF="$4"
 SUM="${BASE}/predictor_inputs/${TRAIT}/${PRED}.txt"      # SNP A1 A2 BETA P (SNP=CHR:POS)
 OUT="${BASE}/results/${TRAIT}/${VAL}"; mkdir -p "${OUT}"

@@ -4,21 +4,21 @@
 ─────────────────────────
 Mechanism B (cross-ancestry marginal heterogeneity): a variant whose per-ancestry
 effects point in OPPOSITE directions is cancelled by any shared-effect combination
-(the All-by-All fixed-effect meta-analysis and SAIGE-Tractor's homogeneous test),
-and is recovered only by SAIGE-Tractor's heterogeneous (K-df) test and the combined
+(the All-by-All fixed-effect meta-analysis and FELIX's homogeneous test),
+and is recovered only by FELIX's heterogeneous (K-df) test and the combined
 (CCT) test. Two worked examples:
 
   B1  APOC1 (APOE/APOC1) — alkaline phosphatase   (chr19:44,919,689)
   B2  HPR / TXNL4B       — LDL cholesterol         (chr16:72,080,103)
 
 Visualization (the three-beat story, per example):
-  LEFT  forest plot   — per-ancestry effect (beta, 95% CI) for SAIGE-Tractor
+  LEFT  forest plot   — per-ancestry effect (beta, 95% CI) for FELIX
                         (filled) and the All-by-All strata (open), coloured by
                         ancestry. African positive, European negative — the sign
                         flip is the WHY. The grey diamond at ~0 is the All-by-All
                         fixed-effect meta estimate: the cancellation made visible.
   RIGHT test ladder   — -log10 p for the four combination choices (All-by-All meta,
-                        SAIGE-Tractor homogeneous / heterogeneous / CCT) against the
+                        FELIX homogeneous / heterogeneous / CCT) against the
                         genome-wide line. Only het and CCT cross it: the WHAT.
 
 All numbers are read at run time from the scatter CCT table (replicable).
@@ -46,7 +46,7 @@ ANC = [("AFR", "anc1", "ABA_AFR"), ("EAS", "anc2", "ABA_EAS"),
        ("EUR", "anc3", "ABA_EUR"), ("NatAm", "anc4", "ABA_AMR"),
        ("SAS", "anc5", "ABA_SAS")]
 COL_META   = "#7a7a7a"     # neutral grey — shared-effect combinations that cancel
-COL_RECOV  = "#CC79A7"     # SAIGE-Tractor brand — tests that recover the signal
+COL_RECOV  = "#CC79A7"     # FELIX brand — tests that recover the signal
 GW = 5e-8; GW_LOG = -np.log10(GW)
 
 df = load_scatter(SCATTER_TABLES["cct"])
@@ -95,7 +95,7 @@ def forest(ax, r, trait, title):
                     color=col, lw=2.2, alpha=0.8, solid_capstyle="round", zorder=3)
             ax.scatter([ab_b], [y - 0.16], s=110, facecolor="white", edgecolor=col,
                        linewidth=2.0, marker="s", zorder=4)
-        # SAIGE-Tractor (filled circle), slightly above
+        # FELIX (filled circle), slightly above
         ax.plot([sb - 1.96*sse, sb + 1.96*sse], [y + 0.16]*2,
                 color=col, lw=4.5, solid_capstyle="round", zorder=5)
         ax.scatter([sb], [y + 0.16], s=240, color=col, edgecolor="white",
@@ -127,7 +127,7 @@ def forest(ax, r, trait, title):
     ax.set_xlabel(f"Per-ancestry effect on {trait}  (β, 95% CI)")
     ax.set_title(title, loc="left", weight="bold", fontsize=12.5)
     ax.legend(handles=[
-        Line2D([], [], marker="o", color="#555", ls="none", markersize=11, label="SAIGE-Tractor"),
+        Line2D([], [], marker="o", color="#555", ls="none", markersize=11, label="FELIX"),
         Line2D([], [], marker="s", color="none", markerfacecolor="white",
                markeredgecolor="#555", markeredgewidth=2.0, ls="none", markersize=10,
                label="All by All (stratum)")],
@@ -138,9 +138,9 @@ def forest(ax, r, trait, title):
 # ── ladder panel: which combination recovers the signal ──────────────────────
 def ladder(ax, r):
     tests = [("All by All\nmeta-analysis", r.get("ABA_META_Pvalue")),
-             ("SAIGE-Tractor\nhomogeneous", r.get("SAIGE_P_hom_admixed_c")),
-             ("SAIGE-Tractor\nheterogeneous", r.get("SAIGE_P_het_admixed_c")),
-             ("SAIGE-Tractor\nCCT (combined)", r.get("SAIGE_P_cct_admixed_c"))]
+             ("FELIX\nhomogeneous", r.get("SAIGE_P_hom_admixed_c")),
+             ("FELIX\nheterogeneous", r.get("SAIGE_P_het_admixed_c")),
+             ("FELIX\nCCT (combined)", r.get("SAIGE_P_cct_admixed_c"))]
     ys = np.arange(len(tests))[::-1]                   # meta on top
     vals = [mlog(p) for _, p in tests]
     cols = [COL_RECOV if v >= GW_LOG else COL_META for v in vals]

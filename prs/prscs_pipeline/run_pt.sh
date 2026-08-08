@@ -3,7 +3,7 @@
 # predictors. Multi-ancestry predictors (meta, felix) are clumped on BOTH eur10k and
 # prop10k; the ancestry-matched predictor is clumped on its matched panel.
 #   bash run_pt.sh <TRAIT>            # CLUMP_P1=5e-8 default; CLUMP_P1=5e-6 to switch
-source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/config.sh"
 TRAIT="$1"
 echo "=================  ${TRAIT}  (thresh ${CLUMP_P1})  ================="
 for VAL in ${ANCS}; do

@@ -3,8 +3,8 @@
 #SBATCH --partition=normal
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.out
-#SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.err
+#SBATCH --output=log/%x_%A_%a.out
+#SBATCH --error=log/%x_%A_%a.err
 
 ## Build everything needed to benchmark Tractor-Mix vs FELIX at one
 ## sample size in {10000, 50000, 100000, 150000, 200000}, with P=1000 markers
@@ -49,7 +49,8 @@
 set -euo pipefail
 module load singularity
 
-BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
+BASE="${FELIX_SIM_BASE:?Set FELIX_SIM_BASE to the simulation directory before submitting}"
+export FELIX_SIM_BASE
 RTOOLS=/data/wzhougroup/lhu/tools/rtools_latest.sif
 SAIGE=/data/wzhougroup/lhu/tools/saige_151.sif
 SING="singularity exec --bind /data/wzhougroup/lhu:/data/wzhougroup/lhu --home /data/wzhougroup/lhu"
@@ -75,19 +76,19 @@ echo "  BENCH_DIR  = $BENCH_DIR"
 
 ## ---- (a) simulator ---------------------------------------------------
 echo "==== [a] simu_bench_largeN.R ===="
-$SING $RTOOLS Rscript ${BASE}/scripts/R/simu_bench_largeN.R
+$SING $RTOOLS Rscript ${BASE}/R/simu_bench_largeN.R
 
 ## ---- (b) dosage VCF for SAIGE step2 ---------------------------------
 echo "==== [b] make_vcf.R 1 bench ===="
-$SING $RTOOLS Rscript ${BASE}/scripts/R/make_vcf.R 1 bench
+$SING $RTOOLS Rscript ${BASE}/R/make_vcf.R 1 bench
 
 ## ---- (c) Tractor-Mix hapdose ----------------------------------------
 echo "==== [c] make_tractormix_hapdose.R bench ===="
-$SING $RTOOLS Rscript ${BASE}/scripts/R/make_tractormix_hapdose.R bench
+$SING $RTOOLS Rscript ${BASE}/R/make_tractormix_hapdose.R bench
 
 ## ---- (d) PLINK pruned for sparse GRM --------------------------------
 echo "==== [d] make_plink_pruned.R bench ===="
-$SING $RTOOLS Rscript ${BASE}/scripts/R/make_plink_pruned.R bench
+$SING $RTOOLS Rscript ${BASE}/R/make_plink_pruned.R bench
 
 ## ---- (e) sparse GRM for SAIGE step1 ---------------------------------
 echo "==== [e] createSparseGRM.R ===="

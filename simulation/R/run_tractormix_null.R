@@ -20,7 +20,7 @@ mode  <- args[1]
 trait <- args[2]
 seed  <- as.integer(args[3])
 
-source("/data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/R/config.R")
+source(file.path(Sys.getenv("FELIX_SIM_BASE", unset = stop("Set FELIX_SIM_BASE to the simulation directory before running this script")), "R", "config.R"))
 set_mode(mode)
 suppressPackageStartupMessages({
   library(data.table)

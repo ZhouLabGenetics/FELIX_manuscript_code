@@ -8,7 +8,7 @@ args <- commandArgs(trailingOnly = TRUE)
 if (length(args) < 1) stop("Usage: aggregate_Admprop.R <common|lowfreq>")
 mode <- args[1]
 
-source("/data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/R/config.R")
+source(file.path(Sys.getenv("FELIX_SIM_BASE", unset = stop("Set FELIX_SIM_BASE to the simulation directory before running this script")), "R", "config.R"))
 set_mode(mode)
 source_utils()
 library(data.table)

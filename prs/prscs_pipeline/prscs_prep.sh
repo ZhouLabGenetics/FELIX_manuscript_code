@@ -3,7 +3,7 @@
 # extraction is still going. PRS-CS matches sumstats to its LD panel by rsID, but our
 # predictor score files are keyed by CHR:POS. This maps them to rsID (via the PRS-CS HM3
 # snpinfo) and writes PRS-CS-format sumstats "SNP A1 A2 BETA P" under prscs_inputs/.
-source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/config.sh"
 cd "${BASE}"
 mkdir -p prscs_inputs
 

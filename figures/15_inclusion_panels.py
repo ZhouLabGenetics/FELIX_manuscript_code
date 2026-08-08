@@ -6,8 +6,8 @@ For each Mechanism-A (inclusion → power) candidate locus, produce a consistent
 SET of two standalone panels so examples can be swapped in/out smoothly:
 
   (1) sample-size comparison  — per-ancestry effective N, global-ancestry
-      meta-analysis vs SAIGE-Tractor (cohort-level, from sample_size_table).
-  (2) locus-zoom              — REAL summary statistics: SAIGE-Tractor combined
+      meta-analysis vs FELIX (cohort-level, from sample_size_table).
+  (2) locus-zoom              — REAL summary statistics: FELIX combined
       test vs global-ancestry meta-analysis −log10 p across the locus, with the
       genome-wide line and the lead variant marked.
 
@@ -19,7 +19,7 @@ Examples (pick-and-choose):
 
 Palettes (per the latest manuscript spec):
   ancestry plots  → ANC_COLORS below (AFR blue, EUR orange, …)
-  locus-zoom      → meta = deep purple, SAIGE-Tractor = forest green (matches Fig 4a)
+  locus-zoom      → meta = deep purple, FELIX = forest green (matches Fig 4a)
 
 400-dpi PNG + vector PDF.
 """
@@ -47,7 +47,7 @@ ANC_COLORS = {
 }
 # locus-zoom theme (matches Fig 4a)
 COLOR_META = "#7B1FA2"    # deep purple — global-ancestry meta-analysis
-COLOR_ST   = "#2E7D32"    # forest green — SAIGE-Tractor
+COLOR_ST   = "#2E7D32"    # forest green — FELIX
 GW = 5e-8; GW_LOG = -np.log10(GW)
 
 ss_tab = pd.read_csv(REPLICATION_DIR / "sample_size_table.tsv", sep="\t")
@@ -114,7 +114,7 @@ def sample_size_panel(pheno_id, gene, trait, driver, fname):
     ax.legend(handles=[Rectangle((0,0),1,1, fc="#777", alpha=0.30,
                                   label="global-ancestry meta-analysis"),
                        Rectangle((0,0),1,1, fc="#777", alpha=1.0,
-                                  label="SAIGE-Tractor")],
+                                  label="FELIX")],
               loc="lower right", fontsize=11, frameon=False)
     for s in ("top", "right"): ax.spines[s].set_visible(False)
     ax.tick_params(axis="y", left=False)
@@ -140,7 +140,7 @@ def locuszoom_panel(saige_pheno, aba_pheno, gene, chrom, pos, trait, fname,
     ax.scatter(ab["POS"]/1e6, ab["y"], s=46, facecolor="none", edgecolor=COLOR_META,
                linewidth=1.4, label="global-ancestry meta-analysis", zorder=3)
     ax.scatter(sg["POS"]/1e6, sg["y"], s=52, color=COLOR_ST, alpha=0.9,
-               edgecolor="white", linewidth=0.5, label="SAIGE-Tractor (combined test)", zorder=4)
+               edgecolor="white", linewidth=0.5, label="FELIX (combined test)", zorder=4)
     ax.axhline(GW_LOG, ls="--", lw=1.8, color="#333")
     # GW label on the LEFT so it never collides with the gene label (right of the peak)
     ax.text(sg["POS"].min()/1e6, GW_LOG + 0.12, "genome-wide significance",
@@ -156,7 +156,7 @@ def locuszoom_panel(saige_pheno, aba_pheno, gene, chrom, pos, trait, fname,
     ax.set_ylabel("Association evidence  ($-\\log_{10} p$)")
     ax.set_ylim(0, max(sg["y"].max(), ab["y"].max()) * 1.20)
     ax.legend(loc="upper left", frameon=False, fontsize=12)
-    ax.set_title(f"{gene} — {trait}: SAIGE-Tractor lifts the peak past "
+    ax.set_title(f"{gene} — {trait}: FELIX lifts the peak past "
                  f"genome-wide significance", loc="left", weight="bold", fontsize=13)
     if caveat:
         ax.text(0.5, -0.20, caveat, transform=ax.transAxes, ha="center", va="top",

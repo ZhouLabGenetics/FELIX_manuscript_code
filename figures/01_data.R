@@ -31,7 +31,7 @@ mlog    <- function(p, cap = 24) pmin(-log10(pmax(as.numeric(p), 1e-300)), cap)
 SAIGE_SS <- file.path(ROOT, "saige_sumstat")
 ABA_SS   <- file.path(ROOT, "aba_sumstat")
 saige_region <- function(sp, chrom, pos, window = 5e5) {
-  f <- file.path(SAIGE_SS, paste0("merged_saigetractor_", sp, ".txt.gz"))
+  f <- file.path(SAIGE_SS, paste0("merged_felix_", sp, ".txt.gz"))
   d <- fread(cmd = sprintf("gzcat %s", shQuote(f)))
   d[, CHR := sub("chr", "", as.character(CHR))][, POS := as.numeric(POS)]
   d[CHR == as.character(chrom) & POS >= pos - window & POS <= pos + window]

@@ -30,7 +30,7 @@ p9 <- ggplot(d9, aes(x, y, color = stronger)) +
 save_fig(p9, "fig9_meta_anchored_scatter", width = 18, height = 7)
 
 ## Fig 10 — BMI haplotype counts, local (SAIGE) vs global (ABA x2)
-bmi_gz <- file.path(SAIGE_SS, "merged_saigetractor_BMI.txt.gz")
+bmi_gz <- file.path(SAIGE_SS, "merged_felix_BMI.txt.gz")
 hcols <- paste0("N_haplo_anc", 1:5)
 bh <- fread(cmd = sprintf("gzcat %s", shQuote(bmi_gz)), select = hcols)
 loc <- sapply(hcols, function(c) { v <- as.numeric(bh[[c]]); median(v[v > 0], na.rm = TRUE) })

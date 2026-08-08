@@ -2,7 +2,7 @@
 #$ -N geno_prep
 #$ -cwd
 #$ -j y
-#$ -o /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/log/
+#$ -o log/
 #$ -l h_vmem=24g
 #$ -l h_rt=24:00:00
 #$ -t 1-22
@@ -16,7 +16,7 @@
 #
 #   qsub 02_geno_prep.qsub            # 22 tasks in parallel
 # Smoke-test one chr:  SGE_TASK_ID=22 bash 02_geno_prep.qsub
-source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/config.sh"
 cd "${BASE}"
 
 c=${SGE_TASK_ID:-1}

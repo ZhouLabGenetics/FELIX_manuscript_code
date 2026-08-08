@@ -2,7 +2,7 @@
 #$ -N boot
 #$ -cwd
 #$ -j y
-#$ -o /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/log/
+#$ -o log/
 #$ -l h_vmem=32g
 #$ -l h_rt=12:00:00
 #$ -t 1-11
@@ -16,7 +16,7 @@
 #   qsub 04_bootstrap.qsub                       # 5e-8
 #   qsub -v CLUMP_P1=5e-6 04_bootstrap.qsub      # 5e-6
 #   qsub -v B=1000 04_bootstrap.qsub             # faster full-EUR tail (looser CIs)
-source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/config.sh"
 HERE="${SCRIPTS_DIR}"
 
 # 10k EUR validation subset, disjoint from the eur10k LD panel (deterministic + atomic)

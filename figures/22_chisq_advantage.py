@@ -2,17 +2,17 @@
 """
 22_chisq_advantage.py
 ─────────────────────
-SAIGE-Tractor's overall advantage over the All by All meta-analysis, in
+FELIX's overall advantage over the All by All meta-analysis, in
 chi-square terms, combining the two halves of the advantage in one figure:
 
   (a) DISCOVERY BREADTH — each method's own independent genome-wide-significant
       loci (the populations counted in Supplementary Fig. 2b: All by All 715,
-      SAIGE-Tractor 837). SAIGE-Tractor detects more loci at comparable strength.
+      FELIX 837). FELIX detects more loci at comparable strength.
 
   (b) SIGNAL DEPTH at SHARED loci (PAIRED) — at the loci both methods detect
       (SAIGE-lead view, locus_status=="shared"), the 1-df chi-square is compared
-      variant-by-variant: All by All (from ABA_META_Pvalue) vs SAIGE-Tractor
-      (from SAIGE_P_cct_admixed_c). SAIGE-Tractor's chi-square is systematically
+      variant-by-variant: All by All (from ABA_META_Pvalue) vs FELIX
+      (from SAIGE_P_cct_admixed_c). FELIX's chi-square is systematically
       higher — the same precision/power gain quantified in Supplementary Table 7.
 
 chi-square is converted back from each p-value as chi2 = isf(p, df=1); p floored
@@ -34,7 +34,7 @@ apply_manuscript_style()
 # Colourblind-safe pair chosen to avoid every colour in the project's anc_colors
 # (#777777 #117733 #0072B2 #882255 #999933) and method_colors (#CC79A7 #E69F00 #56B4E9):
 COL_ABA   = "#CC3311"   # All by All meta-analysis (Tol vibrant red)
-COL_SAIGE = "#009988"   # SAIGE-Tractor (Tol vibrant teal)
+COL_SAIGE = "#009988"   # FELIX (Tol vibrant teal)
 GW = 5e-8
 P_FLOOR = 1e-300
 GW_CHISQ = float(chi2.isf(GW, 1))
@@ -63,7 +63,7 @@ pct_up  = 100*np.mean(d_st > d_aba)
 med_inc = 100*np.median(d_st/d_aba - 1)
 dir_conc = 100*np.mean(np.sign(num("ABA_META_BETA")[b.index])==np.sign(num("SAIGE_BETA_c_ancALL")[b.index]))
 
-print(f"[22] (a) breadth: All by All own n={len(aba_own)} med={np.median(aba_own):.1f} | SAIGE-Tractor own n={len(st_own)} med={np.median(st_own):.1f}")
+print(f"[22] (a) breadth: All by All own n={len(aba_own)} med={np.median(aba_own):.1f} | FELIX own n={len(st_own)} med={np.median(st_own):.1f}")
 print(f"[22] (b) depth (Stable 7): n={len(b)} med chi2 ABA={np.median(d_aba):.1f} SAIGE={np.median(d_st):.1f}; higher in SAIGE {pct_up:.0f}%; median incr {med_inc:+.0f}%; dir {dir_conc:.0f}%")
 
 fig, (axA, axB) = plt.subplots(1, 2, figsize=(9.6, 6.2), gridspec_kw={"wspace":0.34})
@@ -71,7 +71,7 @@ fig, (axA, axB) = plt.subplots(1, 2, figsize=(9.6, 6.2), gridspec_kw={"wspace":0
 def style_box(ax, data, cols, ns=None):
     # Two boxes butted flush at x=1.5 so the median lines compare directly.
     # If ns is given, box WIDTH is proportional to the number of loci (a
-    # text-free way to show "SAIGE-Tractor detects more loci"); otherwise equal.
+    # text-free way to show "FELIX detects more loci"); otherwise equal.
     if ns is None:
         widths = [1.0, 1.0]
     else:
@@ -84,7 +84,7 @@ def style_box(ax, data, cols, ns=None):
         patch.set_facecolor(c); patch.set_alpha(0.55); patch.set_edgecolor(c); patch.set_linewidth(1.8)
     ax.axhline(GW_CHISQ, ls="--", lw=1.3, color="#999", zorder=1)   # genome-wide reference (see legend)
     ax.set_yscale("log"); ax.set_xlim(0.4, 2.6)
-    ax.set_xticks(centers); ax.set_xticklabels(["All by All\nmeta-analysis","SAIGE-Tractor"], fontsize=13, weight="bold")
+    ax.set_xticks(centers); ax.set_xticklabels(["All by All\nmeta-analysis","FELIX"], fontsize=13, weight="bold")
     ax.get_xticklabels()[0].set_color(COL_ABA); ax.get_xticklabels()[1].set_color(COL_SAIGE)
     ax.tick_params(axis="x", length=0)
     for s in ("top","right"): ax.spines[s].set_visible(False)

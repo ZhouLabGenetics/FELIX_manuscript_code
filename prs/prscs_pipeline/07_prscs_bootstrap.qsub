@@ -2,7 +2,7 @@
 #$ -N prscs_boot
 #$ -cwd
 #$ -j y
-#$ -o /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/log/
+#$ -o log/
 #$ -l h_vmem=32g
 #$ -l h_rt=12:00:00
 #$ -t 1-11
@@ -11,7 +11,7 @@
 # PRS-CS scores are results/<trait>/<VAL>/<pred>_PRSCS.sscore ; baseline = felix.
 #   qsub 07_prscs_bootstrap.qsub                 # B=2000
 #   qsub -v B=1000 07_prscs_bootstrap.qsub
-source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/config.sh"
 HERE="${SCRIPTS_DIR}"
 export CLUMP_P1=PRSCS          # tag: run_bootstrap globs *_PRSCS.sscore
 export BASELINE=felix          # PRS-CS predictor names are felix / meta / matched_<T>

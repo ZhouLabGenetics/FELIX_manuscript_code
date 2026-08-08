@@ -3,8 +3,8 @@
 #SBATCH --partition=normal
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A.out
-#SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A.err
+#SBATCH --output=log/%x_%A.out
+#SBATCH --error=log/%x_%A.err
 
 ## Build a 3-way admixed benchmark cohort with mixed relatedness.
 ## N individuals (UNREL_PCT% unrelated, rest in FAMSIZE=10 sib families),
@@ -36,7 +36,7 @@
 ##
 ## Interactive 4-mixture loop in a 20G shell (no sbatch):
 ##   srun --mem=20G --cpus-per-task=1 --time=04:00:00 --pty bash
-##   cd /data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/slurm
+##   cd ${FELIX_SIM_BASE}/slurm
 ##   for PCT in 100 75 50 25; do
 ##     UNREL_PCT=$PCT bash ./40_simu_unrelated.sh
 ##   done
@@ -44,7 +44,8 @@
 set -euo pipefail
 module load apptainer 2>/dev/null || module load singularity 2>/dev/null || true
 
-BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
+BASE="${FELIX_SIM_BASE:?Set FELIX_SIM_BASE to the simulation directory before submitting}"
+export FELIX_SIM_BASE
 RTOOLS=/data/wzhougroup/lhu/tools/rtools_latest.sif
 SAIGE=/data/wzhougroup/lhu/tools/saige_151.sif
 HYBRID_SIF=/data/wzhougroup/lhu/tools/FELIX_latest.sif
@@ -69,15 +70,15 @@ echo "  N_SEEDS   = $N_SEEDS"
 
 ## ---- (a) simulator ---------------------------------------------------
 echo "==== [a] simu_unrelated.R ===="
-$APPT $RTOOLS Rscript ${BASE}/scripts/R/simu_unrelated.R $N_SEEDS
+$APPT $RTOOLS Rscript ${BASE}/R/simu_unrelated.R $N_SEEDS
 
 ## ---- (b) dosage VCF for SAIGE step2 --------------------------------
 echo "==== [b] make_vcf.R 1 unr ===="
-$APPT $RTOOLS Rscript ${BASE}/scripts/R/make_vcf.R 1 unr
+$APPT $RTOOLS Rscript ${BASE}/R/make_vcf.R 1 unr
 
 ## ---- (c) PLINK pruned for sparse GRM -------------------------------
 echo "==== [c] make_plink_pruned.R unr ===="
-$APPT $RTOOLS Rscript ${BASE}/scripts/R/make_plink_pruned.R unr
+$APPT $RTOOLS Rscript ${BASE}/R/make_plink_pruned.R unr
 
 ## ---- (d) sparse GRM for SAIGE step1 --------------------------------
 ## Unrelated cohort => sparseGRM essentially diagonal at relatednessCutoff=0.125.

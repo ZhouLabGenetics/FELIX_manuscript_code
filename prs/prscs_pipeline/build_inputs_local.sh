@@ -12,4 +12,4 @@ for t in ${TRAITS}; do
 done
 echo
 echo "Built under ${OUT}. Transfer with:"
-echo "  rsync -avz ${OUT}/ lhu@<newcluster>:/humgen/atgu1/fin/lhu/projects/saige_tractor/prs/predictor_inputs/"
+echo "  rsync -avz ${OUT}/ lhu@<newcluster>:<FELIX_PRS_BASE>/predictor_inputs/"

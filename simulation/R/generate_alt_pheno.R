@@ -28,7 +28,7 @@ if (length(args) < 1) stop("Usage: generate_alt_pheno.R <common|lowfreq>")
 mode <- args[1]
 OVERWRITE <- isTRUE(as.logical(Sys.getenv("OVERWRITE", "FALSE")))
 
-source("/data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/R/config.R")
+source(file.path(Sys.getenv("FELIX_SIM_BASE", unset = stop("Set FELIX_SIM_BASE to the simulation directory before running this script")), "R", "config.R"))
 set_mode(mode)
 library(data.table)
 

@@ -22,7 +22,7 @@ if (length(args) < 1) stop("Usage: plot_power.R <common|lowfreq> [threshold]")
 mode   <- args[1]
 THRESH <- if (length(args) >= 2) as.numeric(args[2]) else 5e-8
 
-source("/data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/R/config.R")
+source(file.path(Sys.getenv("FELIX_SIM_BASE", unset = stop("Set FELIX_SIM_BASE to the simulation directory before running this script")), "R", "config.R"))
 set_mode(mode)
 library(data.table)
 library(ggplot2)

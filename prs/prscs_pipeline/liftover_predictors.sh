@@ -6,7 +6,7 @@
 # Downloads liftOver + chain if missing. Backs up originals to predictor_inputs_hg38_bak/.
 #
 #   bash liftover_predictors.sh
-source /humgen/atgu1/fin/lhu/projects/saige_tractor/prs/scripts/config.sh
+source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/config.sh"
 cd "${BASE}"
 LO="${TOOLS}/liftOver"; CHAIN="${TOOLS}/hg38ToHg19.over.chain.gz"
 

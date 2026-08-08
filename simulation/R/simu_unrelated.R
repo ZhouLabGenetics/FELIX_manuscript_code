@@ -36,7 +36,7 @@ stopifnot(is.finite(n_seeds), n_seeds >= 1L, n_seeds <= 99L)
 unrel_pct <- as.integer(Sys.getenv("UNREL_PCT", "100"))
 stopifnot(is.finite(unrel_pct), unrel_pct >= 0L, unrel_pct <= 100L)
 
-source("/data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/R/config.R")
+source(file.path(Sys.getenv("FELIX_SIM_BASE", unset = stop("Set FELIX_SIM_BASE to the simulation directory before running this script")), "R", "config.R"))
 set_mode("unr")
 source_utils()
 

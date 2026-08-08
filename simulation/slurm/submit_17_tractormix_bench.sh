@@ -21,7 +21,8 @@ N_SEEDS=${N_SEEDS:-5}
 TIMEOUT=${TIMEOUT:-20:00:00}
 MEM=${MEM:-32G}
 
-BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
+BASE="${FELIX_SIM_BASE:?Set FELIX_SIM_BASE to the simulation directory before submitting}"
+export FELIX_SIM_BASE
 MANIFEST_DIR=${BASE}/data/${MODE}/tractormix
 mkdir -p "$MANIFEST_DIR"
 MANIFEST=${MANIFEST_DIR}/bench_manifest.tsv

@@ -3,8 +3,8 @@
 #SBATCH --partition=normal
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --output=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.out
-#SBATCH --error=/data/wzhougroup/lhu/saige_tractor/simulation/3way/log/%x_%A_%a.err
+#SBATCH --output=log/%x_%A_%a.out
+#SBATCH --error=log/%x_%A_%a.err
 
 ## Full pipeline for one all-unrelated 3-way admixture cohort.
 ## Runs:
@@ -33,20 +33,20 @@
 ## INTERACTIVE, 3 PARALLEL SESSIONS (open 3 separate terminals):
 ##   # terminal 1
 ##   srun --mem=48G --cpus-per-task=1 --time=04:00:00 --pty bash
-##   cd /data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/slurm
+##   cd ${FELIX_SIM_BASE}/slurm
 ##   ADMIX_SCENARIO=2way_50_50    bash ./50_simu_admix_50k.sh
 ##   # terminal 2
 ##   srun --mem=48G --cpus-per-task=1 --time=04:00:00 --pty bash
-##   cd /data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/slurm
+##   cd ${FELIX_SIM_BASE}/slurm
 ##   ADMIX_SCENARIO=2way_25_75    bash ./50_simu_admix_50k.sh
 ##   # terminal 3
 ##   srun --mem=48G --cpus-per-task=1 --time=04:00:00 --pty bash
-##   cd /data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/slurm
+##   cd ${FELIX_SIM_BASE}/slurm
 ##   ADMIX_SCENARIO=3way_20_30_50 bash ./50_simu_admix_50k.sh
 ##
 ## INTERACTIVE, 3 SCENARIOS SEQUENTIALLY in one shell:
 ##   srun --mem=48G --cpus-per-task=1 --time=06:00:00 --pty bash
-##   cd /data/wzhougroup/lhu/saige_tractor/simulation/3way/scripts/slurm
+##   cd ${FELIX_SIM_BASE}/slurm
 ##   for SC in 2way_50_50 2way_25_75 3way_20_30_50; do
 ##     ADMIX_SCENARIO=$SC bash ./50_simu_admix_50k.sh
 ##   done
@@ -59,7 +59,8 @@
 set -euo pipefail
 module load apptainer 2>/dev/null || module load singularity 2>/dev/null || true
 
-BASE=/data/wzhougroup/lhu/saige_tractor/simulation/3way
+BASE="${FELIX_SIM_BASE:?Set FELIX_SIM_BASE to the simulation directory before submitting}"
+export FELIX_SIM_BASE
 RTOOLS=/data/wzhougroup/lhu/tools/rtools_latest.sif
 HYBRID_SIF=${HYBRID_SIF:-/data/wzhougroup/lhu/tools/FELIX_latest.sif}
 APPT="apptainer exec --bind /data/wzhougroup/lhu:/data/wzhougroup/lhu --home /data/wzhougroup/lhu"
@@ -100,11 +101,11 @@ echo "  N_SEEDS        = $N_SEEDS"
 
 ## (a) simulator -- writes Block_row1/, kinship_sparse.rds, plink/pruned.{bed,bim,fam}, phenos
 echo "==== [a] simu_admix_50k.R ===="
-$APPT $RTOOLS Rscript ${BASE}/scripts/R/simu_admix_50k.R $N_SEEDS
+$APPT $RTOOLS Rscript ${BASE}/R/simu_admix_50k.R $N_SEEDS
 
 ## (b) make_vcf -- writes vcf/chr1.vcf.gz with DS1/DS2/DS3/ANC1/ANC2/ANC3/DSALL
 echo "==== [b] make_vcf.R 1 admix ===="
-$APPT $RTOOLS Rscript ${BASE}/scripts/R/make_vcf.R 1 admix
+$APPT $RTOOLS Rscript ${BASE}/R/make_vcf.R 1 admix
 
 ## (c) hybrid format -- writes hybrid/chr1.* (all 11 files the user listed)
 echo "==== [c] tractor_dosage_vcf_to_hybrid ===="
