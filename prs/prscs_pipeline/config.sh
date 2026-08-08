@@ -3,23 +3,20 @@
 # cluster (UGER/qsub). Every script does `source config.sh`. Edit here, once.
 set -euo pipefail
 
-BASE=/humgen/atgu1/fin/lhu/projects/saige_tractor/prs
+BASE=.
 SCRIPTS_DIR="${BASE}/scripts"          # all pipeline scripts live here (absolute; qsub-safe)
 TOOLS=/humgen/atgu1/fin/lhu/tools
 PLINK2="${TOOLS}/plink2"                              # v2.00a6LM (Aug 2024) — bgen->bed
 PLINK19="${TOOLS}/plink"                             # v1.9.0-b.7.11 — clump + score (validated dialect)
 BGENIX="${TOOLS}/bgen/build/apps/bgenix"            # v1.1.7 — index-based HM3 pre-extraction from bgen
-SIF="${TOOLS}/saigeqtl_latest.sif"                   # (no longer used for R)
-# R = Broad dotkit R-4.1 (base R only; no extra packages needed). R-using scripts do:
-#   set +eu; source /broad/software/scripts/useuse; use R-4.1; set -eu
-# (+e too: `use` returns nonzero when R-4.1 is already loaded, which would trip set -e.)
+SIF="${TOOLS}/rtools.sif"                   # (no longer used for R)
 RUN_R="Rscript"
 LOGDIR="${BASE}/log"
 
 # --- inputs already on the cluster -----------------------------------------
-GENODIR=/humgen/atgu1/fin/wzhou/projects/UKB/genotype   # for_grm .fam = per-ancestry sample lists
-BGENDIR=/broad/ukbb/imputed_v3                          # ukb_imp_chr${c}_v3.bgen (+ .bgi)
-BGEN_SAMPLE=/humgen/atgu1/fin/wzhou/projects/survival_analysis/realdata/UKBB/geno/ukb31063.autosomes.sample.rmFirstTwoLines
+GENODIR=~/UKB/genotype   # for_grm .fam = per-ancestry sample lists
+BGENDIR=~/ukbb/imputed_v3                          # ukb_imp_chr${c}_v3.bgen (+ .bgi)
+BGEN_SAMPLE=~/ukb.sample
 SAMPLE_PLINK="${BASE}/ukb_imp.sample"                 # plink2-ready .sample (2 header lines); built by 01_prep_refs.sh
 PRSREF="${TOOLS}/PRS_ref"
 SNPINFO="${PRSREF}/ldblk_ukbb_eur/snpinfo_ukbb_hm3"     # HM3 variant list (CHR SNP BP A1 A2 ...)
