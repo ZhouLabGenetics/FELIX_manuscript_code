@@ -1,23 +1,9 @@
 #!/usr/bin/env python3
 """
 21_chisq_boxplot.py
-───────────────────
-Overall signal-strength comparison, All by All vs FELIX, as the boxplot
-analog of Supplementary Fig. 2b. Where 2b counts each method's independent
-genome-wide-significant loci, this plots the DISTRIBUTION of their signal: the
+Overall signal-strength comparison, All by All vs FELIX, the
 1-degree-of-freedom chi-square converted back from each locus's p-value
 (chi2 = isf(p, df=1)), pooled across the 24 analysed phenotypes.
-
-  left  box : All by All meta-analysis  — chi-square at its GW-significant loci
-              (from ABA_META_Pvalue)
-  right box : FELIX combined (CCT) test — chi-square at its GW-significant
-              loci (from SAIGE_P_cct_admixed_c)
-
-Two side-by-side boxplots; log y-axis (top-locus chi-square spans orders of
-magnitude); genome-wide chi-square threshold marked. Numbers read at run time
-(replicable). NEW file only.
-
-Output: manuscript_figures/SFig_chisq_boxplot_aba_vs_saige.{pdf,png}
 """
 from __future__ import annotations
 import numpy as np
