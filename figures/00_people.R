@@ -1,5 +1,5 @@
 # 00_people.R — recolour the BioArt unisex icon by ancestry (solid or striped = admixed).
-# source() after 00_theme.R. Returns ggplot annotation layers placing a person at (x,y).
+# source() after 00_theme.R. Returns ggplot annotation layers placing a person at (x, y).
 suppressMessages({library(png); library(grid)})
 .ICON <- png::readPNG(file.path(ROOT, "figures_R", "png", "BIOART-13", "UnisexIcon0001.png"))
 .ASPECT <- dim(.ICON)[1] / dim(.ICON)[2]           # height / width (~2.39)
