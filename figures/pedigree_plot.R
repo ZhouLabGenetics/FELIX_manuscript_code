@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# Three-generation pedigree of the simulated families (Supplementary Fig. 10).
+# Three-generation pedigree of the simulated families 
 
 if (!requireNamespace("kinship2", quietly = TRUE)) {
   install.packages("kinship2", repos = "https://cloud.r-project.org")
@@ -40,7 +40,7 @@ plot(ped,
 par(op)
 dev.off()
 
-# 4. Save to PNG (300 DPI high-quality raster graphic for presentations)
+# 4. Save to PNG 
 png("pedigree_family_structure.png", width = 13, height = 6, units = "in", res = 300)
 op <- par(mar = c(1.5, 1.5, 1.5, 1.5))
 plot(ped,
