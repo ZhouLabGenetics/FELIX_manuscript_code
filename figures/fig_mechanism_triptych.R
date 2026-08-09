@@ -1,11 +1,6 @@
 #!/usr/bin/env Rscript
-# Nature-standard per-locus "triptych" main figures backing the two discovery mechanisms.
-#   Fig 3 (Mechanism A - inclusion + AF refinement): IL23R-Crohn's, ADRB2/SH3TC2-BMI, PNPLA3 I148M-AST
-#   Fig 4 (Mechanism B - cross-ancestry heterogeneity): APOC1-ALP, HPR/TXNL4B-LDL
-# Each locus = 3 panels: (i) regional ancestry-resolved association, (ii) per-ancestry
-# effect forest (FELIXassoc vs All by All), (iii) mechanism "money" panel.
-# Locked CB-safe palette; no free-floating on-plot text (labels only in title/axis/legend,
-# except the exact AF numbers the user asked to keep on the PNPLA3 bars).
+#  two discovery mechanisms.
+
 source("scripts_R/00_theme.R"); source("scripts_R/01_data.R")
 suppressMessages(library(patchwork))
 dt <- load_scatter()
