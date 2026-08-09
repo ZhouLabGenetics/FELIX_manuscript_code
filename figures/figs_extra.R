@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
-# Ports scripts/05_extra_figures.py: fig9 meta-anchored scatter, fig10 BMI haplotype bars,
-# fig11 method overlap, supp hom/het overlap. On-plot count labels/stat boxes removed.
+# meta-anchored scatter, BMI haplotype bars,
+#  method overlap, supp hom/het overlap. 
 source("scripts_R/00_theme.R"); source("scripts_R/01_data.R")
 suppressMessages(library(patchwork))
 ml <- function(p) -log10(pmax(as.numeric(p), 1e-320))
