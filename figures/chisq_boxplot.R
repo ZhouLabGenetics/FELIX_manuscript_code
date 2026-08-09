@@ -1,10 +1,5 @@
 #!/usr/bin/env Rscript
-# Chi-square comparison at the All-by-All baseline top hits (the SAME loci as the fig12 beta-
-# concordance scatter). For each locus we compute the effect chi-square (beta/SE)^2 under All by All
-# and under FELIXassoc. Two outputs:
-#   (1) a plain boxplot of the two distributions (log y; heavy chi-square tail is intrinsic), and
-#   (2) a per-locus scatter (FELIXassoc vs All by All), which mirrors the beta-concordance scatter:
-#       tightly concordant, most points above the y=x line (FELIXassoc stronger), a few outliers.
+# Chi-square comparison at the All-by-All baseline top hits. 
 source("scripts_R/00_theme.R"); source("scripts_R/01_data.R")
 dt <- load_scatter()
 b <- dt[tophit_source == "ABA"]
