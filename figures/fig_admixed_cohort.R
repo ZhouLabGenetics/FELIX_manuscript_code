@@ -1,8 +1,5 @@
 #!/usr/bin/env Rscript
-# Admixed-cohort schematic: a grid of human silhouettes (BioArt icon), each coloured by its ancestry
-# composition. Single-ancestry individuals are one solid colour; admixed individuals are vertical
-# colour stripes with widths proportional to their local-ancestry fractions. Illustrates that a real
-# cohort is a continuum of mosaics, not a set of discrete clusters. High resolution.
+# create a grid of human silhouettes (BioArt icon)
 source("scripts_R/00_theme.R"); source("scripts_R/00_people.R")
 suppressMessages(library(grid))
 A <- ANC_COLORS
