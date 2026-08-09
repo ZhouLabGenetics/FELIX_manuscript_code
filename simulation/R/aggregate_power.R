@@ -1,7 +1,6 @@
 ## Summarise FELIX step2 output on ALT phenotypes into power tables.
 ##
-## Manifest-agnostic: walks data/<mode>/saige_out/alt/<TAG>/ directly. The
-## TAG name encodes (trait, scenario, beta, seed) and is parsed via regex.
+## The TAG name encodes (trait, scenario, beta, seed) and is parsed via regex.
 ## The causal SNP is read from data/<mode>/pheno/alt/causal.txt; if that
 ## file is missing, falls back to causal_snp column of any manifest.tsv
 ## (works for both the old wide and the new long format).
