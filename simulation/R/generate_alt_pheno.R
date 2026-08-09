@@ -1,13 +1,5 @@
 ## Generate ALT phenotypes for power evaluation.
 ##
-## Per-(trait, scenario) beta grids let each condition be calibrated
-## independently — quantitative + common saturates around 0.5, but binary low
-## prevalence + AFR-only needs much larger betas to escape the floor.
-##
-## Existing pheno files are reused if their filename matches a (trait, scen,
-## beta, seed) listed in BETA_GRIDS. New combinations are generated fresh.
-## Set OVERWRITE=TRUE in the environment to force regeneration of every file.
-##
 ## Outputs per mode:
 ##   data/<mode>/pheno/alt/<trait>_<scen>_beta<round(B*100)>_seed<s>.tsv
 ##   data/<mode>/pheno/alt/manifest.tsv
@@ -16,12 +8,6 @@
 ## 0.13 -> beta013, 7.50 -> beta750. The %03d encoding lets fractional betas
 ## (e.g. 0.13, 0.16, 0.18) coexist with the multiples-of-0.1 grid points.
 ##
-## Manifest columns (long format, one row per pheno file):
-##   trait | scenario | beta | seed | causal_snp | causal_chr | causal_pos
-##         | file | beta0
-##
-## Usage:  Rscript generate_alt_pheno.R <common|lowfreq>
-##         OVERWRITE=TRUE Rscript generate_alt_pheno.R common   # force regen
 
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) < 1) stop("Usage: generate_alt_pheno.R <common|lowfreq>")
