@@ -1,5 +1,5 @@
 #!/bin/bash
-# FELIXassoc step 1: fit the null GLMM for a binary trait (All of Us workbench).
+# FELIXassoc step 1: fit the null GLMM for an example binary trait (All of Us workbench).
 set -o pipefail
 set -o errexit
 
