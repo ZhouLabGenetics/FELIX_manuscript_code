@@ -1,13 +1,5 @@
 #!/usr/bin/env python3
-"""Best-of-both-worlds graphical-abstract panel (FELIX, Figure 1).
-
-Message-first, left-to-right reading flow. ONE individual's genome carries both kinds of
-locus at different chromosomal positions: a shared-effect locus (similar effect on both
-backgrounds) and an ancestry-specific locus (strong on one background, weak on the other).
-A homogeneous test catches the shared locus but misses the ancestry-specific one (the
-ancestry effect is averaged away). A heterogeneous test catches the ancestry-specific
-locus but is underpowered on the shared one. FELIXassoc catches both, with no model chosen
-in advance. Minimal text, large bold labels, big icons, legible at thumbnail size."""
+"""Best-of-both-worlds graphical-abstract panel"""
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Circle
 
