@@ -1,6 +1,5 @@
 #!/usr/bin/env Rscript
-# Figure 1 graphical abstract (rebuild of scripts/12_graphical_abstract.py), production-clean
-# 2x2 narrative for Nature Genetics: A concept, B method, C resolution, D worked example.
+# Figure 1 components rebuilt in R style
 source("scripts_R/00_theme.R"); source("scripts_R/00_people.R"); source("scripts_R/01_data.R")
 suppressMessages(library(patchwork))
 A <- ANC_COLORS
