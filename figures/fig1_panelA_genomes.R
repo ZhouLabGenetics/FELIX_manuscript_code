@@ -1,10 +1,5 @@
 #!/usr/bin/env Rscript
-# Figure 1 Panel A - realistic admixed-genome karyograms for the 3 narrative individuals
-# (drop-in replacement for the "same three individuals - their genomes" sub-panel).
-# Local-ancestry segments simulated from a recombination model: breakpoints ~ Poisson along
-# the genetic map (g generations since admixture), segment ancestries drawn from each
-# individual's global proportions. 22 chromosomes drawn to scale, diploid (2 haplotypes each).
-# Colours = the exact palette sampled from the current figure (locked ANC palette).
+# illustrative admixed-genome karyograms 
 source("scripts_R/00_theme.R")
 set.seed(2024)
 
