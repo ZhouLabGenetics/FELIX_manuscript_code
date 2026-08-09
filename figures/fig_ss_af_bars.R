@@ -1,7 +1,6 @@
 #!/usr/bin/env Rscript
 # Ancestry-coloured grouped bars: All by All = shaded (alpha), FELIXassoc = solid,
-# same ancestry hue. Value labels kept ON the plot (exact N / AF). "not tested" in grey
-# where an ancestry has no value. Regenerates fig4_ss_* and builds the PNPLA3 AF barplot.
+# same ancestry hue. 
 source("scripts_R/00_theme.R"); source("scripts_R/01_data.R")
 dt <- load_scatter()
 ssL <- fread(file.path(REPLIC, "sample_size_table_long.tsv"))
