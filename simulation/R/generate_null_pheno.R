@@ -7,18 +7,6 @@
 ##   - bin01  : binary, prevalence = 0.01
 ##   - bin10  : binary, prevalence = 0.10
 ##
-## TRUE NULL: no covariate effects, no genetic effects. For quantitative
-## traits the kinship random effect is kept (SAIGE models it via the sparse
-## GRM). For binary traits the random effect is DROPPED so that case status
-## is iid Bernoulli(prevalence) — this avoids pedigree-driven case clustering
-## that creates confounding between local ancestry and case status when the
-## per-ancestry case count is very small (e.g. N_case_anc1 ~ 7-9 at 1%
-## prevalence with ~10% AFR admixture).
-##
-## Covariates AFR and NAT are written to the file so SAIGE can condition on
-## them, but they have zero true effect on the phenotype.
-##
-## Usage:  Rscript generate_null_pheno.R <common|lowfreq>
 
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) < 1) stop("Usage: generate_null_pheno.R <common|lowfreq>")
