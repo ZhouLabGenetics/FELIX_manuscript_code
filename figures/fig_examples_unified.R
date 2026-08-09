@@ -4,10 +4,7 @@
 #   (i)   per-ancestry effective sample size  -> grouped bars (All by All vs FELIXassoc)
 #   (ii)  per-ancestry alternate-allele freq   -> Cleveland dot plot (missing value = simply absent)
 #   (iii) per-ancestry effect size             -> forest (beta +/- 95% CI)
-# All five ancestries always shown (AFR, EAS, EUR, AMR, SAS); a value absent from the sumstats is
-# left blank (genuinely not tested). Ancestry-coloured; All by All = shaded/open, FELIXassoc =
-# solid/filled. Numbers on the marks (k-abbreviated so they do not overlap); centred sub-panel
-# titles; large title = gene + variant + Title-Case phenotype.
+
 source("scripts_R/00_theme.R"); source("scripts_R/01_data.R")
 suppressMessages(library(patchwork))
 dt  <- load_scatter()
