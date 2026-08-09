@@ -1,7 +1,6 @@
 #!/usr/bin/env Rscript
-# Mechanism overview (rebuild of scripts/11_locus_mechanism_figures.py): a compact grid of
-# per-ancestry effect forests for worked loci, showing shared vs heterogeneous architecture.
-# Data-driven; no on-plot text; new palette.
+# grid of per-ancestry effect forests for worked loci, showing shared vs heterogeneous architecture.
+
 source("scripts_R/00_theme.R"); source("scripts_R/01_data.R")
 dt <- load_scatter()
 loci <- data.table(
