@@ -1,27 +1,5 @@
 #!/usr/bin/env Rscript
-# Fig_prs_r2 -- PRS incremental-R2 of all three training strategies (Stable 9), vertical
-# grouped bar chart, one panel per ancestry stacked top to bottom (EUR, CSA, AFR, EAS;
-# descending N). Traits are x-axis columns (all 11, ordered by FELIX ancALL's R2 in EUR,
-# descending, same order in every panel). Bars are incremental R2 with 95% CI error bars,
-# dodged and colored by method (FELIX ancALL / All by All META / All by All
-# ancestrally-matched). The R2 scale is fixed/shared across all four ancestry panels, so
-# absolute R2 is directly comparable ancestry-to-ancestry as well as trait-to-trait; this
-# compresses the small-N panels (EUR's R2 is ~50x EAS/AFR's) but keeps one consistent axis
-# throughout. Every trait always reserves 3 dodge slots (built from the full trait x
-# ancestry x method grid), so the same three GWAS line up across all four ancestries; where
-# a GWAS could not be reliably estimated at that ancestry's sample size (5/11 traits in
-# EAS, 3/11 in CSA), no bar is drawn (zero-height, invisible fill) but the slot's width is
-# still reserved so the other bars keep consistent positions across every trait, and a
-# small grey asterisk marks the empty slot as "not estimable" rather than absent data.
-#
-# Self-contained: data (Stable 9 from the FELIX manuscript's Supplementary_Tables.xlsx) is
-# embedded below, so this script needs no other files -- just the R packages listed next.
-#
-# Requires: ggplot2, dplyr, tidyr, readr, scales
-#   install.packages(c("ggplot2", "dplyr", "tidyr", "readr", "scales"))
-#
-# Usage:   Rscript Fig_prs_r2.R
-# Output:  Fig_prs_r2.pdf and Fig_prs_r2.png, written to the current working directory.
+# Fig_prs_r2 -- PRS incremental-R2 of all three training strategies (Stable 9)
 
 suppressPackageStartupMessages({
   library(ggplot2); library(dplyr); library(tidyr); library(readr); library(scales)
