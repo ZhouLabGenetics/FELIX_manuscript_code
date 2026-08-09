@@ -1,6 +1,6 @@
 #!/bin/bash
-# FELIXassoc step 2: homogeneous + heterogeneous score tests from the FELIXla
-# input and the step-1 null model, per chromosome (All of Us workbench).
+# FELIXassoc step 2: example commands to run score tests from the FELIXla input 
+# and the step-1 null model, per chromosome (All of Us workbench).
 set -o pipefail
 set -o errexit
 
