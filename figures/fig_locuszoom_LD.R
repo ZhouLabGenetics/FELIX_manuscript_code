@@ -1,7 +1,5 @@
 #!/usr/bin/env Rscript
-# LD locus-zooms (ports scripts/18_locuszoom_LD.py). FELIXassoc CCT + All-by-All meta
-# across the locus, SAIGE points coloured by r^2 to the lead (CB-safe viridis, NOT the
-# red-green LocusZoom rainbow). No on-plot text; large fonts; PDF+PNG.
+# LD locus-zooms. FELIXassoc CCT + All-by-All meta
 source("scripts_R/00_theme.R"); source("scripts_R/01_data.R")
 suppressMessages(library(viridisLite))
 
