@@ -6,27 +6,7 @@ Mechanism B (cross-ancestry marginal heterogeneity): a variant whose per-ancestr
 effects point in OPPOSITE directions is cancelled by any shared-effect combination
 (the All-by-All fixed-effect meta-analysis and FELIX's homogeneous test),
 and is recovered only by FELIX's heterogeneous (K-df) test and the combined
-(CCT) test. Two worked examples:
-
-  B1  APOC1 (APOE/APOC1) — alkaline phosphatase   (chr19:44,919,689)
-  B2  HPR / TXNL4B       — LDL cholesterol         (chr16:72,080,103)
-
-Visualization (the three-beat story, per example):
-  LEFT  forest plot   — per-ancestry effect (beta, 95% CI) for FELIX
-                        (filled) and the All-by-All strata (open), coloured by
-                        ancestry. African positive, European negative — the sign
-                        flip is the WHY. The grey diamond at ~0 is the All-by-All
-                        fixed-effect meta estimate: the cancellation made visible.
-  RIGHT test ladder   — -log10 p for the four combination choices (All-by-All meta,
-                        FELIX homogeneous / heterogeneous / CCT) against the
-                        genome-wide line. Only het and CCT cross it: the WHAT.
-
-All numbers are read at run time from the scatter CCT table (replicable).
-
-Output (NEW files only — never overwrites fig4C1/fig4C2):
-  manuscript_figures/fig4_mechB_heterogeneity.{pdf,png}     (combined 2x2)
-  manuscript_figures/fig4_mechB1_apoc1.{pdf,png}            (B1 standalone)
-  manuscript_figures/fig4_mechB2_hpr.{pdf,png}              (B2 standalone)
+(CCT) test. 
 """
 from __future__ import annotations
 import numpy as np
