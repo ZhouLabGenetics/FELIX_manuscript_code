@@ -1,37 +1,4 @@
 ## All-unrelated 3-way admixture simulator with full local-ancestry tracking,
-## sized for N=20k (or whatever ADMIX_N you set). Output schema matches
-## simu_unrelated.R / simu_3way.R so make_vcf.R works unchanged.
-##
-## Three scenarios via ADMIX_SCENARIO env var:
-##   2way_50_50    -- Dirichlet(alpha = c(5.0, 5.0)) over (AFR, EUR); NAT=0
-##   2way_25_75    -- Dirichlet(alpha = c(2.5, 7.5)) over (AFR, EUR); NAT=0
-##   3way_20_30_50 -- Dirichlet(alpha = c(2.0, 3.0, 5.0)) over (AFR, EUR, NAT)
-##
-## Outputs (under ADMIX_DIR):
-##   Block_row1/{GTot,GAfr,GEur,GNat,LAafr,LAeur,LAnat}.tsv
-##   Admprop.tsv, SNP_AF.tsv
-##   kinship_sparse.rds            (0.5 * I, all unrelated)
-##   plink/pruned.{bed,bim,fam}    (inline, ~3000 markers)
-##   pheno/null/{quant,bin10,bin01}_seed01..NN.tsv
-##     * 2-way pheno cols: IID, PHENO, AFR
-##     * 3-way pheno cols: IID, PHENO, AFR, NAT
-##
-## Algorithm: per-individual slow-path so LA is tracked. Vectorised in
-## batches of 500 individuals via:
-##     u1, u2 ~ Uniform        ->  la1, la2 by threshold against cumprops
-##     maf_at = M_anc[la+1, s] ->  hap1, hap2 ~ Bernoulli
-##
-## Memory: 7 P*N int matrices + per-batch transients. At ADMIX_N=20k, P=50k:
-##   persistent  = 7 * 4 GB = 28 GB
-##   per-batch   = ~0.6 GB
-##   peak (first GTot.tsv write transient) ~ 32 GB.
-##   Fits comfortably in --mem=48G.
-##
-## Wall: sim ~3-5 min, 7 TSV writes ~5 min, PLINK ~30 s -> ~10 min/scenario.
-##
-## Usage:
-##   ADMIX_DIR=... ADMIX_N=20000 ADMIX_P=50000 ADMIX_SCENARIO=2way_50_50  \
-##   Rscript simu_admix_50k.R [N_SEEDS]
 
 args <- commandArgs(trailingOnly = TRUE)
 n_seeds <- if (length(args) >= 1) as.integer(args[1]) else 2L
