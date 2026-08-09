@@ -1,7 +1,5 @@
 #!/usr/bin/env Rscript
-# Beta concordance (All by All vs FELIXassoc) at All-by-All top hits, positive-beta
-# subset. Ports scripts/10_beta_scatterplots.py. On-plot stat boxes/caption REMOVED
-# (interpretation belongs in the manuscript); only points, y=x line, axes, title.
+# Beta concordance (All by All vs FELIXassoc) at All-by-All top hits
 source("scripts_R/00_theme.R"); source("scripts_R/01_data.R")
 dt <- load_scatter()
 aba <- dt[tophit_source == "ABA"]
