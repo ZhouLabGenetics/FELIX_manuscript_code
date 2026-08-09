@@ -1,36 +1,4 @@
 ## Minimal large-N benchmark simulator for FELIX vs Tractor-Mix.
-##
-## Goal: demonstrate that as N grows, Tractor-Mix's dense-kinship GLMM blows
-## up while FELIX's sparse-GRM + variance-ratio pipeline stays cheap.
-## To isolate that contrast we use a SMALL variant count (P=1000 by default),
-## so simulation cost is dominated by N, not P.
-##
-## Sample structure: N / FAMSIZE families of FAMSIZE=10 FULL SIBS (no parents
-## kept in the dataset). Within-family pedigree kinship is K[i,i]=0.5,
-## K[i,j]=0.25 for i!=j; between families K=0. This makes K block-diagonal
-## sparse, so FELIX's sparse GRM is meaningful while Tractor-Mix's
-## dense representation of the same K is unavoidably O(N^2) on disk and in RAM.
-##
-## Variant model: 1000 markers under Balding-Nichols with the same FST values
-## as the main simulation (AFR=0.15, EUR=0.10, NAT=0.15).
-##
-## Outputs (under BENCH_DIR -- set by config.R bench mode):
-##   Block_row1/{GTot,GAfr,GEur,GNat,LAafr,LAeur,LAnat}.tsv
-##   Admprop.tsv
-##   SNP_AF.tsv
-##   kinship_sparse.rds        sparse block-diag K (the only kinship file written)
-##   pheno/null/{quant,bin10,bin01}_seed01.tsv
-##
-## We deliberately do NOT write a dense Kinship.tsv. R's copy semantics during
-## `as.matrix(K_sparse)` + `as.data.table(.)` + `cbind(...)` cause a 3x peak,
-## so writing it at N=100k would need >240 GB RAM. TM's runner densifies the
-## sparse RDS in-memory at run time; SAIGE uses sparseGRM*.mtx instead. The
-## benchmark therefore measures TM's true dense-K cost without the artefact of
-## a pre-rendered TSV.
-##
-## Usage:
-##   BENCH_DIR=/.../bench_N50000_P1000  BENCH_N=50000  BENCH_P=1000  \
-##       Rscript simu_bench_largeN.R
 
 source(file.path(Sys.getenv("FELIX_SIM_BASE", unset = stop("Set FELIX_SIM_BASE to the simulation directory before running this script")), "R", "config.R"))
 set_mode("bench")
