@@ -1,25 +1,6 @@
 #!/usr/bin/env python3
 """
 18_locuszoom_LD.py
-──────────────────
-LocusZoom-style locus-zooms with REAL linkage-disequilibrium (r^2) colouring,
-for the Mechanism-A (inclusion -> power) loci. Each panel shows the
-FELIX combined-test -log10 p across the locus, with every variant
-coloured by its r^2 to the lead variant (the standard LocusZoom rainbow),
-the All-by-All global-ancestry meta-analysis overlaid as open reference
-markers, the genome-wide line, and the lead variant marked.
-
-r^2 is computed from the 1000 Genomes GRCh38 high-coverage phased panel
-(NYGC 3202-sample release, ftp.1000genomes.ebi.ac.uk), restricted to the
-unrelated founders of the ancestry that drives each signal (EUR/AFR/AMR),
-streamed per-region with tabix and turned into r^2 with plink. Positions are
-GRCh38 throughout, matching the summary statistics.
-
-Outputs (NEW files only, never overwrites the existing locus-zooms):
-  manuscript_figures/fig4_lz_<gene>_LD.{pdf,png}
-
-Replicable: region reference panels are cached under ref_1000g/regions/<gene>.*
-so re-runs skip the download.
 """
 from __future__ import annotations
 import subprocess, shutil
@@ -204,9 +185,5 @@ if __name__ == "__main__":
     # ADRB2/SH3TC2 — BMI (AFR-driven)
     lz_LD_panel("BMI", "BMI", "ADRB2/SH3TC2", 5, 148898672,
                 "BMI", "AFR", "fig4_lz_adrb2_LD")
-    # SUPT3H — height (EUR-driven; EUR untested in ABA at the lead)
-    lz_LD_panel("height", "height", "SUPT3H", 6, 44831920,
-                "height", "EUR", "fig4_lz_supt3h_LD",
-                caveat="⚠ caveat: the EUR stratum was NOT tested by the "
-                       "global-ancestry meta-analysis at this variant (cf. IKZF3).")
+
     print(f"[18] done — outputs in {FIGS_DIR}")
