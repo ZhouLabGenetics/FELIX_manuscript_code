@@ -1,5 +1,5 @@
 #!/bin/bash
-# FELIXassoc step 1: fit the null GLMM for a quantitative trait (All of Us workbench).
+# FELIXassoc step 1: fit the null GLMM for a example quantitative trait (All of Us workbench).
 set -o pipefail
 set -o errexit
 
