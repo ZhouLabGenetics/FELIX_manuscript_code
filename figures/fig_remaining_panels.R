@@ -1,7 +1,6 @@
 #!/usr/bin/env Rscript
-# Remaining 1:1 panels: per-locus mechanism forests (fig14a-21), overview_strong,
-# non-LD locus-zooms (14/15), sample-size bars (15), het forests (14 C1/C2),
-# ADRB2 inclusion (14 A2), and graphical-abstract panel_d (12). Shared helpers; new palette.
+# Remaining 1:1 panels: per-locus mechanism forests, overview_strong,
+# non-LD locus-zooms, sample-size bars, het forests
 source("scripts_R/00_theme.R"); source("scripts_R/01_data.R")
 dt <- load_scatter()
 ssL <- fread(file.path(REPLIC, "sample_size_table_long.tsv"))
