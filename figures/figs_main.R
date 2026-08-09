@@ -1,6 +1,5 @@
 #!/usr/bin/env Rscript
-# Ports scripts/04_manuscript_figures.py (fig1-8). No on-plot text (stat boxes/annotations
-# removed -> manuscript); large fonts; locked palette; PDF+PNG.
+
 source("scripts_R/00_theme.R"); source("scripts_R/01_data.R")
 suppressMessages(library(patchwork))
 ml <- function(p) -log10(pmax(as.numeric(p), 1e-320))
