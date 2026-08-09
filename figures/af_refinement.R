@@ -1,6 +1,5 @@
 #!/usr/bin/env Rscript
-# Allele-frequency refinement (Mechanism A facet): per-ancestry local vs cluster AF
-# + per-ancestry effect. Ports scripts/17_af_refinement_figure.py. No on-plot text.
+# Allele-frequency refinement: per-ancestry local vs cluster AF + per-ancestry effect. 
 source("scripts_R/00_theme.R"); source("scripts_R/01_data.R")
 suppressMessages(library(patchwork))
 dt <- load_scatter()
