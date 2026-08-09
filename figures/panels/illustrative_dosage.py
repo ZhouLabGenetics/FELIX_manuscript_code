@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""Figure 1 Panel B (sub-panel) - wide, detailed haplotype -> ancestry-specific dosage
-deconvolution (Tractor-style), a fully worked 5-SNP example. Defines DS (ancestry-specific
-dosage) and ANC (local-ancestry count) explicitly. Python/matplotlib for fine control."""
+""" illustrative haplotype -> ancestry-specific dosage layout"""
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle, FancyArrow, Circle
