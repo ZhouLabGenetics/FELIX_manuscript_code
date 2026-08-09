@@ -3,31 +3,6 @@
 ## Cohort composition controlled by UNREL_PCT (env var, integer 0..100):
 ##   UNREL_PCT=100 -> all unrelated (original case)
 ##   UNREL_PCT=75  -> 75% unrelated + 25% in FAMSIZE=10 sib families
-##   UNREL_PCT=50  -> 50/50
-##   UNREL_PCT=25  -> 25% unrelated + 75% related
-##
-## Related arm: each family draws ONE Dirichlet ancestry vector, generates
-## 2 admixed parents, then FAMSIZE=10 full sibs via GenerateChild.
-## Unrelated arm: each individual draws own Dirichlet, then GenerateAdm3.
-##
-## Outputs (under UNR_DIR):
-##   Block_row1/{GTot,GAfr,GEur,GNat,LAafr,LAeur,LAnat}.tsv
-##   Admprop.tsv
-##   SNP_AF.tsv
-##   kinship_sparse.rds        block-diag (families) + 0.5*I (unrelated)
-##   pheno/null/{quant,bin10,bin01}_seed01..NN.tsv
-##
-## Phenotype RNG: PHENO column uses `set.seed(20260601L + seed_i)`, so the
-## same noise vector is produced across cohorts. AFR/NAT covariate columns
-## are cohort-specific because Admprop changes with structure.
-##
-## Memory: peak ~14 GB during sim (7 int matrices at N=10k, P=50k). Block_row
-## writes use per-matrix rm()+gc() to keep write-phase peak under ~18 GB,
-## so the whole run fits in 20 GB.
-##
-## Usage:
-##   UNR_DIR=/.../unr_N10000_P50000_unrel100  UNR_N=10000  UNR_P=50000  \
-##   UNREL_PCT=100  Rscript simu_unrelated.R [N_SEEDS]
 
 args <- commandArgs(trailingOnly = TRUE)
 n_seeds <- if (length(args) >= 1) as.integer(args[1]) else 10L
