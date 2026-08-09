@@ -1,7 +1,5 @@
 #!/usr/bin/env Rscript
-# FELIXassoc method workflow (rebuild of scripts/12_panel_b_workflow.py), production-clean
-# for Nature Genetics: compact, minimal words, new palette, real human icons for the cohort,
-# a local-ancestry->dosage inset, HOM/HET/CCT tests, and outputs incl. the homogeneous joint p.
+# local-ancestry->dosage inset, HOM/HET/CCT tests, and outputs incl. the homogeneous joint p.
 source("scripts_R/00_theme.R"); source("scripts_R/00_people.R")
 suppressMessages(library(grid))
 A <- ANC_COLORS
