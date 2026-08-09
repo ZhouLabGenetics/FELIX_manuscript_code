@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-"""Figure 1 Panel A - admixed genomes for 3 individuals, ORIGINAL diploid layout
-(2 haplotype bars per individual, one chromosome shown 0-100%), but with a REALISTIC
-segment-length distribution (broken-stick recombination breakpoints -> natural mix of
-long and short tracts) and plausible ancestry mixtures. Drop-in replacement.
-Colours sampled from the current figure (locked ancestry palette)."""
+""" Illustrative admixed genomes for 3 individuals, ORIGINAL diploid layout
+(2 haplotype bars per individual, one chromosome shown 0-100%), with broken-stick recombination breakpoints 
+and plausible ancestry mixtures. """
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle, FancyBboxPatch
