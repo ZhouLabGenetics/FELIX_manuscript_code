@@ -1,10 +1,6 @@
 #!/usr/bin/env Rscript
 # Chi-square advantage of FELIXassoc over All by All.
-#   (a) discovery breadth: each method's own genome-wide loci, detection chi-square (boxplot).
-#   (b) signal depth (paired): per baseline locus, FELIXassoc vs All by All effect chi-square
-#       (beta/SE)^2 on a log-log scale with the y=x line. Points above the line = FELIXassoc has
-#       the stronger signal. The few far-out points are real large-effect loci (HBB sickle cell,
-#       HLA) — labeled — not error; the median ratio quantifies the typical advantage.
+
 source("scripts_R/00_theme.R"); source("scripts_R/01_data.R")
 suppressMessages(library(patchwork))
 dt <- load_scatter()
