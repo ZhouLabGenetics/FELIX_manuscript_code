@@ -4,22 +4,8 @@
 ─────────────────────
 FELIX's overall advantage over the All by All meta-analysis, in
 chi-square terms, combining the two halves of the advantage in one figure:
-
-  (a) DISCOVERY BREADTH — each method's own independent genome-wide-significant
-      loci (the populations counted in Supplementary Fig. 2b: All by All 715,
-      FELIX 837). FELIX detects more loci at comparable strength.
-
-  (b) SIGNAL DEPTH at SHARED loci (PAIRED) — at the loci both methods detect
-      (SAIGE-lead view, locus_status=="shared"), the 1-df chi-square is compared
-      variant-by-variant: All by All (from ABA_META_Pvalue) vs FELIX
-      (from SAIGE_P_cct_admixed_c). FELIX's chi-square is systematically
-      higher — the same precision/power gain quantified in Supplementary Table 7.
-
 chi-square is converted back from each p-value as chi2 = isf(p, df=1); p floored
-at 1e-300 so underflowed p stays finite. Numbers read at run time (replicable).
-NEW file only.
-
-Output: manuscript_figures/SFig_chisq_advantage_aba_vs_saige.{pdf,png}
+at 1e-300 so underflowed p stays finite. 
 """
 from __future__ import annotations
 import numpy as np
