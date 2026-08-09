@@ -3,19 +3,6 @@
 ## Two PDFs per mode:
 ##   test_power_<thresh>.pdf      : HOM / HET / CCT,    9 panels (trait x scenario)
 ##   ancestry_power_<thresh>.pdf  : anc1 / anc2 / anc3, 9 panels (trait x scenario)
-##
-## Each panel has its own x-axis (free_x) because per-(trait, scenario) beta
-## grids vary widely now -- e.g. quant common runs 0.1-0.5 while bin01 afr
-## runs 0.8-4.0. Sharing an x-axis would either compress the small-beta panels
-## or stretch the large-beta panels with empty space.
-##
-## Y-axis is shared at [0, 1] across all panels (it's a proportion). A faint
-## dashed reference line at power = 0.8 marks the conventional well-powered
-## threshold so it's easy to read off "smallest beta achieving 80% power".
-##
-## Usage:  Rscript plot_power.R <common|lowfreq> [threshold]
-##         Rscript plot_power.R common              # threshold = 5e-8
-##         Rscript plot_power.R common 1e-5         # custom threshold
 
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) < 1) stop("Usage: plot_power.R <common|lowfreq> [threshold]")
