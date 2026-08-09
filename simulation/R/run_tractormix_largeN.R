@@ -1,19 +1,5 @@
 ## Run Tractor-Mix on one (BENCH_N, trait) condition for the large-N benchmark.
-## Identical structure to run_tractormix_null.R, with two differences:
-##
-##   1. Mode is "bench" (config.R reads BENCH_DIR / BENCH_N / BENCH_P from env).
-##   2. Kinship loading: prefer dense Kinship.tsv (TM's standard input). If
-##      missing -- which we expect at N=200k where dense K (320 GB) was skipped
-##      -- fall back to kinship_sparse.rds *materialised as dense* so glmmkin
-##      sees the same matrix it would receive from Kinship.tsv. The point is
-##      to measure TM's dense-kinship cost. If even the dense materialisation
-##      OOMs, that is the benchmark result.
-##
-## Output:
-##   <BENCH_DIR>/tractormix_out/null/<trait>_seed01/{result.tsv, null.rda}
-##
-## Usage:  Rscript run_tractormix_largeN.R <trait>
-##         (BENCH_DIR / BENCH_N / BENCH_P set by the SLURM wrapper)
+
 
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) < 1) stop("Usage: run_tractormix_largeN.R <quant|bin10|bin01>")
