@@ -1,27 +1,7 @@
 #!/usr/bin/env python3
 """
-15_inclusion_panels.py
-──────────────────────
-For each Mechanism-A (inclusion → power) candidate locus, produce a consistent
-SET of two standalone panels so examples can be swapped in/out smoothly:
-
-  (1) sample-size comparison  — per-ancestry effective N, global-ancestry
-      meta-analysis vs FELIX (cohort-level, from sample_size_table).
-  (2) locus-zoom              — REAL summary statistics: FELIX combined
-      test vs global-ancestry meta-analysis −log10 p across the locus, with the
-      genome-wide line and the lead variant marked.
-
-Examples (pick-and-choose):
-  IL23R / Crohn's   (EUR-driven; clean, tested in both)            — sample-size only (locus-zoom = Fig 4a)
-  ADRB2 / BMI       (AFR-driven; tested in both)                   — sample-size + locus-zoom
-  IKZF3 / asthma    (EUR-driven; tested in both; famous 17q21)     — sample-size + locus-zoom  [recommended substitute]
-  SUPT3H / height   (EUR-driven; ⚠ EUR UNTESTED in ABA)            — sample-size + locus-zoom  [see caveat]
-
-Palettes (per the latest manuscript spec):
-  ancestry plots  → ANC_COLORS below (AFR blue, EUR orange, …)
-  locus-zoom      → meta = deep purple, FELIX = forest green (matches Fig 4a)
-
-400-dpi PNG + vector PDF.
+For each Mechanism-inclusion → power candidate locus, produce a consistent
+SET of two standalone panels 
 """
 from __future__ import annotations
 import math
@@ -181,11 +161,4 @@ if __name__ == "__main__":
     locuszoom_panel("pheno_RE_475", "RE_475", "IKZF3", 17, 39765489, "asthma",
                     "fig4_lz_ikzf3")
 
-    # SUPT3H — full set, with caveat (EUR untested in ABA → same flaw as HFE)
-    sample_size_panel("height", "SUPT3H", "height", "EUR", "fig4_ss_supt3h")
-    locuszoom_panel("height", "height", "SUPT3H", 6, 44831920, "height",
-                    "fig4_lz_supt3h",
-                    caveat="⚠ caveat: the EUR stratum was NOT tested by the "
-                           "global-ancestry meta-analysis at this variant — not a "
-                           "fully tested-in-both comparison (cf. IKZF3).")
     print(f"[15] done — outputs in {FIGS_DIR}")
